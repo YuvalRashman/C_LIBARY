@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/yrash/CLionProjects/C_LIB/cmake-build-debug"
+			"value" : "c:/Users/yrash/GitHub/C_LIBARY/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -479,7 +479,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/yrash/CLionProjects/C_LIB"
+			"value" : "C:/Users/yrash/GitHub/C_LIBARY"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1095,7 +1095,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/yrash/CLionProjects/C_LIB/cmake-build-debug"
+			"value" : "C:/Users/yrash/GitHub/C_LIBARY/cmake-build-debug"
 		},
 		{
 			"name" : "untitled_IS_TOP_LEVEL",
@@ -1119,7 +1119,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/yrash/CLionProjects/C_LIB"
+			"value" : "C:/Users/yrash/GitHub/C_LIBARY"
 		}
 	],
 	"kind" : "cache",
