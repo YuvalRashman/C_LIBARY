@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #define DIMENSION_SIZE 2
-#define ROW_SIZE 10
+#define ROW_SIZE 200
 
 typedef unsigned short typ;
 
@@ -13,6 +13,14 @@ unsigned short sumMatrixRow(typ matrix[][ROW_SIZE], unsigned short row, unsigned
     len--;
     for (; len > ZERO; len--) {
         sum += matrix[len][row];
+    }
+    return sum;
+}
+
+unsigned short sumMatrixRowFromStartCol(typ matrix[][ROW_SIZE], unsigned short row, unsigned short len, unsigned short startCol) {
+    unsigned short sum = ZERO;
+    for (; startCol < len; startCol++) {
+        sum += matrix[startCol][row];
     }
     return sum;
 }
@@ -26,11 +34,11 @@ unsigned short sumMatrixCol(typ matrix[][ROW_SIZE], unsigned short col, unsigned
     return sum;
 }
 
-unsigned short sumMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen) {
-    unsigned short sum = ZERO;
-    colLen--;
-    for (; colLen > ZERO; colLen--) {
-        sum += sumMatrixRow(matrix, colLen, rowLen);
+unsigned short sumMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, unsigned short startPos[2]) {
+    unsigned short sum = sumMatrixRowFromStartCol(matrix, startPos[1], rowLen, startPos[0]);
+    unsigned short offset = startPos[1];
+    for (; offset < colLen; colLen++) {
+        sum += sumMatrixRow(matrix, offset, rowLen);
     }
     return sum;
 }
@@ -200,8 +208,50 @@ BOOL isDiagonalsEqual(typ matrix[][ROW_SIZE], unsigned short len) {
     return flag;
 }
 
+unsigned short minRowSum(typ matrix[][ROW_SIZE], unsigned short colLen, unsigned short rowLen) {
+    unsigned short minSum = sumMatrixRow(matrix, --colLen, rowLen);
+    for (; colLen >= 0; colLen--) {
+        minSum = MIN(minSum, sumMatrixRow(matrix, colLen, rowLen));
+    }
+    return minSum;
+}
 
-float matrixAverage(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen) {
+unsigned short maxRowSum(typ matrix[][ROW_SIZE], unsigned short colLen, unsigned short rowLen) {
+    unsigned short maxSum = sumMatrixRow(matrix, --colLen, rowLen);
+    for (; colLen >= 0; colLen--) {
+        maxSum = MAX(maxSum, sumMatrixRow(matrix, colLen, rowLen));
+    }
+    return maxSum;
+}
+
+unsigned short maxColSum(typ matrix[][ROW_SIZE], unsigned short colLen, unsigned short rowLen) {
+    unsigned short maxSum = sumMatrixCol(matrix, --rowLen, colLen);
+    for (; rowLen >= 0; rowLen--) {
+        maxSum = MAX(maxSum, sumMatrixCol(matrix, --rowLen, colLen));
+    }
+    return maxSum;
+}
+
+unsigned short minColSum(typ matrix[][ROW_SIZE], unsigned short colLen, unsigned short rowLen) {
+    unsigned short minSum = sumMatrixCol(matrix, --rowLen, colLen);
+    for (; rowLen >= 0; rowLen--) {
+        minSum = MIN(minSum, sumMatrixCol(matrix, --rowLen, colLen));
+    }
+    return minSum;
+}
+
+/*float matrixAverage(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen) {
     return sumMatrix(matrix, rowLen, colLen) / (colLen * rowLen);
+}*/
+
+unsigned short sumParamter(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen) {
+    unsigned short pos[2] = {0, 0};
+    unsigned short po2[2] = {1, 1};
+    return sumMatrix(matrix, rowLen, colLen, pos) - sumMatrix(matrix, rowLen - ONE, colLen - ONE, pos);
+}
+
+//TODO JUST DO IT
+void sizeUpSides(typ matrix[][ROW_SIZE], typ result[][(ROW_SIZE + 2)], unsigned short colLen, unsigned short rowLen) {
+
 }
 
