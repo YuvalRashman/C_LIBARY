@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include "stringL.h"
 
-int main() {
-    printf("Hello, World!\n");
-    return 0;
+void main() {
+    string hello = "hello world";
+    printf("%d", indexOfSubstring(hello, "ll", 0));
 }

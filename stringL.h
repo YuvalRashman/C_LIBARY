@@ -14,22 +14,39 @@
 typedef char string[256];
 
 BOOL isContain(string str, char ch, unsigned short usStartOffset);
+
 BOOL isStringsEqual(string str1, string str2);
+
 BOOL isPolyndromous(string str);
+
 BOOL isSubstring(string str, string sub, unsigned short usStartOffset);
+
 unsigned short indexOf(string str, char ch, unsigned short usStartOffset);
+
 unsigned short countCharInString(string str, char ch, unsigned short usStartOffset);
+
 unsigned short length(string str);
+
 unsigned short indexOfSubstring(string str, string sub, unsigned short usStartOffset);
+
 unsigned short countSubstring(string str, string sub);
+
 unsigned int toInt(string str);
+
 void copy(string str1, string str2, unsigned short usStart, unsigned short usEnd);
+
 void copyFromChar(string str1, string str2, char ch);
+
 void concatenation(string str1, string str2);
+
 void reverse(string str);
+
 void toString(string str, unsigned int unNum);
+
 void cut(string str, unsigned short usStartOffset, unsigned short usEndOffset);
+
 void deleteSubstring(string str, string sub, unsigned short startOffset);
+
 void addSubstring(string str, string sub, unsigned short usOffset);
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -123,8 +140,8 @@ unsigned short length(string str) {
 BOOL isStringsEqual(string str1, string str2) {
     unsigned short usOffset = ZERO;
     while (str1[usOffset] * str2[usOffset] * (str1[usOffset] == str2[usOffset++]));
-    usOffset += !(str1[usOffset - ONE] - str2[usOffset - ONE]);
-    return str1[--usOffset] == str2[usOffset];
+    usOffset--;
+    return str1[usOffset] == str2[usOffset];
 }
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -241,7 +258,8 @@ BOOL isPolyndromous(string str) {
 unsigned int toInt(string str) {
     unsigned int unResult;
     unsigned short usOffset;
-    for (unResult = ZERO, usOffset = ZERO; str[usOffset]; unResult += (str[usOffset] - ZERO_INDEX), unResult *= TEN, usOffset++);
+    for (unResult = ZERO, usOffset = ZERO; str[usOffset]; unResult += (str[usOffset] -
+                                                                       ZERO_INDEX), unResult *= TEN, usOffset++);
     unResult /= 10;
     return unResult;
 }
@@ -284,7 +302,8 @@ void cut(string str, unsigned short usStartOffset, unsigned short usEndOffset) {
     unsigned short usOffset;
     unsigned short usStrLength = length(str);
     usStrLength -= (usEndOffset - usStartOffset);
-    for (usOffset = ZERO; (usOffset + usStartOffset) <= usStrLength; str[usStartOffset + usOffset] = str[usEndOffset + usOffset], usOffset++);
+    for (usOffset = ZERO; (usOffset + usStartOffset) <= usStrLength; str[usStartOffset + usOffset] = str[usEndOffset +
+                                                                                                         usOffset], usOffset++);
     str[usStartOffset + usOffset] = EOD;
 }
 
@@ -305,8 +324,7 @@ void cut(string str, unsigned short usStartOffset, unsigned short usEndOffset) {
 unsigned short indexOfSubstring(string str, string sub, unsigned short usStartOffset) {
     string str3;
     unsigned short usStr2Length = length(sub);
-    unsigned short usIndex = usStartOffset;
-    usIndex = indexOf(str, sub[ZERO], usIndex);
+    unsigned short usIndex = indexOf(str, sub[ZERO], usStartOffset);
     copy(str3, str, usIndex, (usIndex + usStr2Length));
     while (str[usIndex] * !isStringsEqual(str3, sub)) {
         usIndex = indexOf(str, sub[ZERO], (usIndex + ONE));
@@ -352,8 +370,7 @@ BOOL isSubstring(string str, string sub, unsigned short usStartOffset) {
 unsigned short countSubstring(string str, string sub) {
     unsigned short usCount = ZERO;
     unsigned short usIndex = indexOfSubstring(str, sub, ZERO);
-    while (isSubstring(str, sub, usIndex))
-    {
+    while (isSubstring(str, sub, usIndex)) {
         usCount++;
         usIndex = indexOfSubstring(str, sub, usIndex + ONE);
     }
@@ -377,8 +394,7 @@ void deleteSubstring(string str, string sub, unsigned short startOffset) {
     unsigned short usStrLength = length(str);
     unsigned short usSub2Length = length(sub);
     unsigned short usIndex = indexOfSubstring(str, sub, startOffset);
-    while (usStrLength > usIndex)
-    {
+    while (usStrLength > usIndex) {
         cut(str, usIndex, (usIndex + usSub2Length));
         usStrLength = length(str);
         usIndex = indexOfSubstring(str, sub, usIndex);

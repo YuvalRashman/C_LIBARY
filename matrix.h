@@ -254,4 +254,3 @@ unsigned short sumParamter(typ matrix[][ROW_SIZE], unsigned short rowLen, unsign
 void sizeUpSides(typ matrix[][ROW_SIZE], typ result[][(ROW_SIZE + 2)], unsigned short colLen, unsigned short rowLen) {
 
 }
-
