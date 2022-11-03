@@ -17,7 +17,8 @@ unsigned short sumMatrixRow(typ matrix[][ROW_SIZE], unsigned short row, unsigned
     return sum;
 }
 
-unsigned short sumMatrixRowFromStartCol(typ matrix[][ROW_SIZE], unsigned short row, unsigned short len, unsigned short startCol) {
+unsigned short
+sumMatrixRowFromStartCol(typ matrix[][ROW_SIZE], unsigned short row, unsigned short len, unsigned short startCol) {
     unsigned short sum = ZERO;
     for (; startCol < len; startCol++) {
         sum += matrix[startCol][row];
@@ -34,7 +35,8 @@ unsigned short sumMatrixCol(typ matrix[][ROW_SIZE], unsigned short col, unsigned
     return sum;
 }
 
-unsigned short sumMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, unsigned short startPos[2]) {
+unsigned short
+sumMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, unsigned short startPos[2]) {
     unsigned short sum = sumMatrixRowFromStartCol(matrix, startPos[1], rowLen, startPos[0]);
     unsigned short offset = startPos[1];
     for (; offset < colLen; colLen++) {
@@ -251,11 +253,12 @@ unsigned short sumParamter(typ matrix[][ROW_SIZE], unsigned short rowLen, unsign
 }
 
 //TODO check this Function
-void sizeUpSides(typ matrix[][ROW_SIZE], typ result[][(ROW_SIZE + 2)], unsigned short colLen, unsigned short rowLen) {
+void copyMatrix(typ matrix[][ROW_SIZE], typ result[][ROW_SIZE], unsigned short colLen, unsigned short rowLen,
+                unsigned short pos[2]) {
     unsigned short offset;
     unsigned short offset2;
-    for (offset = 1; offset < (rowLen + 1); offset++){
-        for(offset2 = 1; offset2 < (colLen+ 1); offset2++){
+    for (offset = pos[1]; offset < (rowLen + 1); offset++) {
+        for (offset2 = pos[0]; offset2 < (colLen + 1); offset2++) {
             result[offset2][offset] = matrix[offset2 - 1][offset - 1];
         }
     }
