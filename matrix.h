@@ -250,7 +250,13 @@ unsigned short sumParamter(typ matrix[][ROW_SIZE], unsigned short rowLen, unsign
     return sumMatrix(matrix, rowLen, colLen, pos) - sumMatrix(matrix, rowLen - ONE, colLen - ONE, pos);
 }
 
-//TODO JUST DO IT
+//TODO check this Function
 void sizeUpSides(typ matrix[][ROW_SIZE], typ result[][(ROW_SIZE + 2)], unsigned short colLen, unsigned short rowLen) {
-
+    unsigned short offset;
+    unsigned short offset2;
+    for (offset = 1; offset < (rowLen + 1); offset++){
+        for(offset2 = 1; offset2 < (colLen+ 1); offset2++){
+            result[offset2][offset] = matrix[offset2 - 1][offset - 1];
+        }
+    }
 }
