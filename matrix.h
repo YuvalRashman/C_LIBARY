@@ -7,11 +7,11 @@
 
 typedef unsigned short typ;
 
-unsigned short sumMatrixRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
+unsigned short sumMatrixRow(short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
                             unsigned short row) {
     unsigned short sum = ZERO;
     rowLen--;
-    for (; rowLen > ZERO; rowLen--) {
+    for (; rowLen >= ZERO; rowLen--) {
         sum += matrix[row][rowLen];
     }
     return sum;
@@ -27,11 +27,11 @@ unsigned short sumNMatrixRowFromStart(unsigned short rowLen, unsigned short colL
     return sum;
 }
 
-unsigned short sumMatrixCol(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
+unsigned short sumMatrixCol(unsigned short rowLen, short colLen, typ matrix[rowLen][colLen],
                             unsigned short col) {
     unsigned short sum = ZERO;
     colLen--;
-    for (; colLen > ZERO; colLen--) {
+    for (; colLen >= ZERO; colLen--) {
         sum += matrix[colLen][col];
     }
     return sum;
@@ -47,6 +47,15 @@ unsigned short sumNMatrixColFromStart(unsigned short rowLen, unsigned short colL
     return sum;
 }
 
+unsigned short sumMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short sum = 0;
+    unsigned short offset;
+    for (offset = 0; offset < colLen; offset++) {
+        sum += sumMatrixRow(rowLen, colLen, matrix, offset);
+    }
+    return sum;
+}
+
 unsigned short sumSubMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
                             unsigned short startPos[], unsigned short subRowLen, unsigned short subColLen) {
     unsigned short sum = 0;
@@ -56,13 +65,27 @@ unsigned short sumSubMatrix(unsigned short rowLen, unsigned short colLen, typ ma
     return sum;
 }
 
-unsigned short sumMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
-    unsigned short sum = 0;
-    unsigned short offset;
-    for (offset = 0; offset < colLen; offset++) {
-        sum += sumMatrixRow(rowLen, colLen, matrix, offset);
+unsigned short sumNeighbors(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
+                            unsigned short pos[2]) {
+    return ((matrix[pos[0], pos[1]]) - sumSubMatrix(rowLen, colLen, matrix, pos, 3, 3));
+}
+
+unsigned short maxNeighbors() {
+    
+}
+
+unsigned short minNeighbors() {
+
+}
+
+unsigned short countNeighbors(unsigned short rowLen, unsigned short colLen, unsigned short pos[2]) {
+    unsigned short count = 8;
+    BOOL flagRowLimit = pos[0] == 0 || pos[0] == (rowLen - 1);
+    BOOL flagColLimit = pos[1] == 0 || pos[1] == (colLen - 1);
+    if (flagRowLimit || flagColLimit) {
+        count -= ((flagColLimit || flagRowLimit) * 3) + (flagRowLimit && flagColLimit) * 2;
     }
-    return sum;
+    return count;
 }
 
 void printMatrixRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short row) {
@@ -143,37 +166,37 @@ unsigned short countValueInMatrix(unsigned short rowLen, unsigned short colLen, 
     return count;
 }
 
-typ maxValueInRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short row) {
+typ maxValueInRow(unsigned short rowLen, short colLen, typ matrix[rowLen][colLen], unsigned short row) {
     typ max = matrix[row][--colLen];
     colLen--;
-    for (; colLen > ZERO; colLen--) {
+    for (; colLen >= ZERO; colLen--) {
         max = MAX(max, matrix[row][colLen]);
     }
     return max;
 }
 
-typ minValueInRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short row) {
+typ minValueInRow(unsigned short rowLen, short colLen, typ matrix[rowLen][colLen], unsigned short row) {
     typ min = matrix[row][--colLen];
     colLen--;
-    for (; colLen > ZERO; colLen--) {
+    for (; colLen >= ZERO; colLen--) {
         min = MIN(min, matrix[row][colLen]);
     }
     return min;
 }
 
-typ maxValueInCol(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short col) {
+typ maxValueInCol(short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short col) {
     typ max = matrix[--rowLen][col];
     rowLen--;
-    for (; rowLen > ZERO; rowLen--) {
+    for (; rowLen >= ZERO; rowLen--) {
         max = MAX(max, matrix[rowLen][col]);
     }
     return max;
 }
 
-typ minValueInCol(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short col) {
+typ minValueInCol(short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short col) {
     typ min = matrix[--rowLen][col];
     rowLen--;
-    for (; rowLen > ZERO; rowLen--) {
+    for (; rowLen >= ZERO; rowLen--) {
         min = MIN(min, matrix[rowLen][col]);
     }
     return min;
@@ -197,7 +220,7 @@ typ minValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[ro
     return min;
 }
 
-unsigned short sumMatrixMainDiagonal(unsigned short len, typ matrix[len][len]) {
+unsigned short sumMatrixMainDiagonal(short len, typ matrix[len][len]) {
     unsigned short sum = 0;
     --len;
     for (; len >= 0; len--) {
@@ -206,7 +229,7 @@ unsigned short sumMatrixMainDiagonal(unsigned short len, typ matrix[len][len]) {
     return sum;
 }
 
-unsigned short sumMatrixSecondaryDiagonal(unsigned short len, typ matrix[len][len]) {
+unsigned short sumMatrixSecondaryDiagonal(short len, typ matrix[len][len]) {
     unsigned short sum = 0;
     unsigned short offset;
     --len;
@@ -266,10 +289,10 @@ unsigned short minColSum(unsigned short rowLen, unsigned short colLen, typ matri
     return minSum;
 }
 
-unsigned short sumParamter(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+unsigned short sumPerimeter(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
     unsigned short pos2[2] = {1, 1};
-    return sumMatrix(matrix, rowLen, colLen) - sumSubMatrix(matrix, rowLen - ONE, colLen - ONE,
-                                                            pos2);
+    return sumMatrix(rowLen, colLen, matrix) - sumSubMatrix(rowLen, colLen, matrix,
+                                                            pos2, (rowLen - 2), (colLen - 2));
 }
 
 void copyMatrix(unsigned short rowLen, unsigned short colLen, unsigned short resultRowLen, unsigned short resultColLen,

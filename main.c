@@ -9,6 +9,5 @@ void main() {
                                     {1,2,3,4}};
     unsigned short matrix2[6][6] = {0};
     unsigned short pos[2] = {0, 0};
-    //copyMatrix(matrix1, matrix2, 4, 4, pos);
-    printMatrix(4, 4, matrix1);
+    printf("%d", countNeighbors(4, 4, pos));
 }
