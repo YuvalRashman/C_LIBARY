@@ -14,7 +14,8 @@ CMakeFiles/untitled.dir/main.c.obj: ../main.c \
   C:/Program\ Files/JetBrains/CLion\ 2022.2.4/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
   C:/Program\ Files/JetBrains/CLion\ 2022.2.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
   ../stringL.h \
-  ../definesLib.h
+  ../definesLib.h \
+  ../matrix.h
 
 
 ../main.c:
@@ -44,3 +45,5 @@ C:/Program\ Files/JetBrains/CLion\ 2022.2.4/bin/mingw/x86_64-w64-mingw32/include
 ../stringL.h:
 
 ../definesLib.h:
+
+../matrix.h:

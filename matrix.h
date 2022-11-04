@@ -4,64 +4,84 @@
 #include <stdio.h>
 
 #define DIMENSION_SIZE 2
-#define ROW_SIZE 200
 
 typedef unsigned short typ;
 
-unsigned short sumMatrixRow(typ matrix[][ROW_SIZE], unsigned short row, unsigned short len) {
+unsigned short sumMatrixRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
+                            unsigned short row) {
     unsigned short sum = ZERO;
-    len--;
-    for (; len > ZERO; len--) {
-        sum += matrix[len][row];
+    rowLen--;
+    for (; rowLen > ZERO; rowLen--) {
+        sum += matrix[row][rowLen];
     }
     return sum;
 }
 
-unsigned short
-sumMatrixRowFromStartCol(typ matrix[][ROW_SIZE], unsigned short row, unsigned short len, unsigned short startCol) {
+unsigned short sumNMatrixRowFromStart(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
+                                      unsigned short start[2], unsigned short n) {
     unsigned short sum = ZERO;
-    for (; startCol < len; startCol++) {
-        sum += matrix[startCol][row];
-    }
-    return sum;
-}
-
-unsigned short sumMatrixCol(typ matrix[][ROW_SIZE], unsigned short col, unsigned short len) {
-    unsigned short sum = ZERO;
-    len--;
-    for (; len > ZERO; len--) {
-        sum += matrix[col][len];
-    }
-    return sum;
-}
-
-unsigned short
-sumMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, unsigned short startPos[2]) {
-    unsigned short sum = sumMatrixRowFromStartCol(matrix, startPos[1], rowLen, startPos[0]);
-    unsigned short offset = startPos[1];
-    for (; offset < colLen; colLen++) {
-        sum += sumMatrixRow(matrix, offset, rowLen);
-    }
-    return sum;
-}
-
-void printMatrixRow(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short row) {
     unsigned short offset;
-    for (offset = 0; offset < rowLen; offset++) {
-        printf("%d ", matrix[offset][row]);
+    for (offset = start[1]; offset < n; offset++) {
+        sum += matrix[start[0]][offset];
     }
-    printf("\n");
+    return sum;
 }
 
-void printMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen) {
+unsigned short sumMatrixCol(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
+                            unsigned short col) {
+    unsigned short sum = ZERO;
+    colLen--;
+    for (; colLen > ZERO; colLen--) {
+        sum += matrix[colLen][col];
+    }
+    return sum;
+}
+
+unsigned short sumNMatrixColFromStart(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
+                                      unsigned short start[2], unsigned short n) {
+    unsigned short sum = ZERO;
+    unsigned short offset;
+    for (offset = start[0]; offset < n; offset++) {
+        sum += matrix[offset][start[1]];
+    }
+    return sum;
+}
+
+unsigned short sumSubMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
+                            unsigned short startPos[], unsigned short subRowLen, unsigned short subColLen) {
+    unsigned short sum = 0;
+    for (; startPos[0] < subColLen; startPos[0]++) {
+        sum += sumNMatrixRowFromStart(rowLen, colLen, matrix, startPos, subRowLen);
+    }
+    return sum;
+}
+
+unsigned short sumMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short sum = 0;
     unsigned short offset;
     for (offset = 0; offset < colLen; offset++) {
-        printMatrixRow(matrix, rowLen, offset);
+        sum += sumMatrixRow(rowLen, colLen, matrix, offset);
+    }
+    return sum;
+}
+
+void printMatrixRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short row) {
+    unsigned short offset;
+    for (offset = 0; offset < rowLen; offset++) {
+        printf("%d ", matrix[row][offset]);
     }
     printf("\n");
 }
 
-void valuePosInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, typ value,
+void printMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short offset;
+    for (offset = 0; offset < colLen; offset++) {
+        printMatrixRow(rowLen, colLen, matrix, offset);
+        printf("\n");
+    }
+}
+
+void valuePosInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], typ value,
                       unsigned short pos[2]) {
     unsigned short rowOffset = ZERO;
     unsigned short colOffset;
@@ -70,7 +90,7 @@ void valuePosInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned sh
         colOffset = ZERO;
         while (colOffset < colLen && flag) {
             colOffset++;
-            flag = matrix[colOffset][rowOffset] != value;
+            flag = matrix[rowOffset][colOffset] != value;
         }
         rowOffset++;
     }
@@ -78,7 +98,7 @@ void valuePosInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned sh
     pos[ONE] = --rowOffset == rowLen ? -ONE : rowOffset;
 }
 
-void nValuePosInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, typ value,
+void nValuePosInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], typ value,
                        unsigned short startPos[DIMENSION_SIZE], unsigned short pos[DIMENSION_SIZE]) {
     unsigned short rowOffset = startPos[ONE];
     unsigned short colOffset = startPos[ZERO];
@@ -86,7 +106,7 @@ void nValuePosInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned s
     while (rowOffset < rowLen && flag) {
         while (colOffset < colLen && flag) {
             colOffset++;
-            flag = matrix[colOffset][rowOffset] != value;
+            flag = matrix[rowOffset][colOffset] != value;
         }
         colOffset = flag ? colOffset : ZERO;
         rowOffset++;
@@ -95,89 +115,89 @@ void nValuePosInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned s
     pos[ONE] = --rowOffset == rowLen ? -ONE : rowOffset;
 }
 
-BOOL isValueInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, typ value) {
+BOOL isValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], typ value) {
     unsigned short pos[DIMENSION_SIZE];
-    valuePosInMatrix(matrix, rowLen, colLen, value, pos);
+    valuePosInMatrix(rowLen, colLen, matrix, value, pos);
     return pos[ZERO] != -ONE;
 }
 
-BOOL isNValueInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, typ value,
+BOOL isNValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], typ value,
                       unsigned short startPos[2]) {
     unsigned short pos[DIMENSION_SIZE];
-    nValuePosInMatrix(matrix, rowLen, colLen, value, startPos, pos);
+    nValuePosInMatrix(rowLen, colLen, matrix, value, startPos, pos);
     return pos[ZERO] != -ONE;
 }
 
-unsigned short countValueInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen, typ value) {
+unsigned short countValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], typ value) {
     unsigned short pos[DIMENSION_SIZE];
-    valuePosInMatrix(matrix, rowLen, colLen, value, pos);
-    BOOL flag = isValueInMatrix(matrix, rowLen, colLen, value);
+    valuePosInMatrix(rowLen, colLen, matrix, value, pos);
+    BOOL flag = isValueInMatrix(rowLen, colLen, matrix, value);
     unsigned short count = ZERO;
     while (flag) {
         count++;
         pos[ZERO]++;
         pos[ONE]++;
-        nValuePosInMatrix(matrix, rowLen, colLen, value, pos, pos);
-        flag = isNValueInMatrix(matrix, rowLen, colLen, value, pos);
+        nValuePosInMatrix(rowLen, colLen, matrix, value, pos, pos);
+        flag = isNValueInMatrix(rowLen, colLen, matrix, value, pos);
     }
     return count;
 }
 
-typ maxValueInRow(typ matrix[][ROW_SIZE], unsigned short row, unsigned short len) {
-    typ max = matrix[--len][row];
-    len--;
-    for (; len > ZERO; len--) {
-        max = MAX(max, matrix[len][row]);
-    }
-    return max;
-}
-
-typ minValueInRow(typ matrix[][ROW_SIZE], unsigned short row, unsigned short len) {
-    typ min = matrix[--len][row];
-    len--;
-    for (; len > ZERO; len--) {
-        min = MIN(min, matrix[len][row]);
-    }
-    return min;
-}
-
-typ maxValueInCol(typ matrix[][ROW_SIZE], unsigned short col, unsigned short len) {
-    typ max = matrix[col][--len];
-    len--;
-    for (; len > ZERO; len--) {
-        max = MAX(max, matrix[col][len]);
-    }
-    return max;
-}
-
-typ minValueInCol(typ matrix[][ROW_SIZE], unsigned short col, unsigned short len) {
-    typ min = matrix[col][--len];
-    len--;
-    for (; len > ZERO; len--) {
-        min = MIN(min, matrix[col][len]);
-    }
-    return min;
-}
-
-typ maxValueInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short coulLen) {
-    typ max = maxValueInRow(matrix, --coulLen, rowLen);
-    coulLen--;
-    for (; coulLen > ZERO; coulLen--) {
-        max = MAX(max, maxValueInRow(matrix, coulLen, rowLen));
-    }
-    return max;
-}
-
-typ minValueInMatrix(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen) {
-    typ min = minValueInRow(matrix, --colLen, rowLen);
+typ maxValueInRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short row) {
+    typ max = matrix[row][--colLen];
     colLen--;
     for (; colLen > ZERO; colLen--) {
-        min = MIN(min, minValueInRow(matrix, colLen, rowLen));
+        max = MAX(max, matrix[row][colLen]);
+    }
+    return max;
+}
+
+typ minValueInRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short row) {
+    typ min = matrix[row][--colLen];
+    colLen--;
+    for (; colLen > ZERO; colLen--) {
+        min = MIN(min, matrix[row][colLen]);
     }
     return min;
 }
 
-unsigned short sumMatrixMainDiagonal(typ matrix[][ROW_SIZE], unsigned short len) {
+typ maxValueInCol(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short col) {
+    typ max = matrix[--rowLen][col];
+    rowLen--;
+    for (; rowLen > ZERO; rowLen--) {
+        max = MAX(max, matrix[rowLen][col]);
+    }
+    return max;
+}
+
+typ minValueInCol(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short col) {
+    typ min = matrix[--rowLen][col];
+    rowLen--;
+    for (; rowLen > ZERO; rowLen--) {
+        min = MIN(min, matrix[rowLen][col]);
+    }
+    return min;
+}
+
+typ maxValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short offset;
+    typ max = maxValueInRow(rowLen, colLen, matrix, 0);
+    for (offset = 1; offset < colLen; offset++) {
+        max = MAX(max, maxValueInRow(rowLen, colLen, matrix, offset));
+    }
+    return max;
+}
+
+typ minValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short offset;
+    typ min = minValueInRow(rowLen, colLen, matrix, 0);
+    for (offset = 1; offset < colLen; offset++) {
+        min = MIN(min, maxValueInRow(rowLen, colLen, matrix, offset));
+    }
+    return min;
+}
+
+unsigned short sumMatrixMainDiagonal(unsigned short len, typ matrix[len][len]) {
     unsigned short sum = 0;
     --len;
     for (; len >= 0; len--) {
@@ -186,80 +206,80 @@ unsigned short sumMatrixMainDiagonal(typ matrix[][ROW_SIZE], unsigned short len)
     return sum;
 }
 
-unsigned short sumMatrixSecondaryDiagonal(typ matrix[][ROW_SIZE], unsigned short len) {
+unsigned short sumMatrixSecondaryDiagonal(unsigned short len, typ matrix[len][len]) {
     unsigned short sum = 0;
     unsigned short offset;
     --len;
     for (offset = 0; len >= 0; len--, offset++) {
-        sum += matrix[offset][len];
+        sum += matrix[len][offset];
     }
     return sum;
 }
 
-BOOL isDiagonalSumsEqual(typ matrix[][ROW_SIZE], unsigned short len) {
-    return sumMatrixMainDiagonal(matrix, len) == sumMatrixSecondaryDiagonal(matrix, len);
+BOOL isDiagonalSumsEqual(unsigned short len, typ matrix[len][len]) {
+    return sumMatrixMainDiagonal(len, matrix) == sumMatrixSecondaryDiagonal(len, matrix);
 
 }
 
-BOOL isDiagonalsEqual(typ matrix[][ROW_SIZE], unsigned short len) {
+BOOL isDiagonalsEqual(unsigned short len, typ matrix[len][len]) {
     unsigned short offset = 0;
     BOOL flag = matrix[offset][offset++] == matrix[--len][len];
     while (flag) {
-        flag = matrix[offset][offset] == matrix[len - offset][offset];
+        flag = matrix[offset][offset] == matrix[offset][len - offset];
     }
     return flag;
 }
 
-unsigned short minRowSum(typ matrix[][ROW_SIZE], unsigned short colLen, unsigned short rowLen) {
-    unsigned short minSum = sumMatrixRow(matrix, --colLen, rowLen);
-    for (; colLen >= 0; colLen--) {
-        minSum = MIN(minSum, sumMatrixRow(matrix, colLen, rowLen));
+unsigned short minRowSum(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short offset = 0;
+    unsigned short minSum = sumMatrixRow(rowLen, colLen, matrix, offset);
+    for (offset = 1; offset < colLen; offset++) {
+        minSum = MIN(minSum, sumMatrixRow(rowLen, colLen, matrix, offset));
     }
     return minSum;
 }
 
-unsigned short maxRowSum(typ matrix[][ROW_SIZE], unsigned short colLen, unsigned short rowLen) {
-    unsigned short maxSum = sumMatrixRow(matrix, --colLen, rowLen);
-    for (; colLen >= 0; colLen--) {
-        maxSum = MAX(maxSum, sumMatrixRow(matrix, colLen, rowLen));
+unsigned short maxRowSum(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short offset = 0;
+    unsigned short maxSum = sumMatrixRow(rowLen, colLen, matrix, offset);
+    for (offset = 1; offset < colLen; offset++) {
+        maxSum = MAX(maxSum, sumMatrixRow(rowLen, colLen, matrix, offset));
     }
     return maxSum;
 }
 
-unsigned short maxColSum(typ matrix[][ROW_SIZE], unsigned short colLen, unsigned short rowLen) {
-    unsigned short maxSum = sumMatrixCol(matrix, --rowLen, colLen);
-    for (; rowLen >= 0; rowLen--) {
-        maxSum = MAX(maxSum, sumMatrixCol(matrix, --rowLen, colLen));
+unsigned short maxColSum(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short offset = 0;
+    unsigned short maxSum = sumMatrixCol(rowLen, colLen, matrix, offset);
+    for (offset = 1; offset < colLen; offset++) {
+        maxSum = MAX(maxSum, sumMatrixCol(rowLen, colLen, matrix, offset));
     }
     return maxSum;
 }
 
-unsigned short minColSum(typ matrix[][ROW_SIZE], unsigned short colLen, unsigned short rowLen) {
-    unsigned short minSum = sumMatrixCol(matrix, --rowLen, colLen);
-    for (; rowLen >= 0; rowLen--) {
-        minSum = MIN(minSum, sumMatrixCol(matrix, --rowLen, colLen));
+unsigned short minColSum(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short offset = 0;
+    unsigned short minSum = sumMatrixCol(rowLen, colLen, matrix, offset);
+    for (offset = 1; offset < colLen; offset++) {
+        minSum = MIN(minSum, sumMatrixCol(rowLen, colLen, matrix, offset));
     }
     return minSum;
 }
 
-/*float matrixAverage(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen) {
-    return sumMatrix(matrix, rowLen, colLen) / (colLen * rowLen);
-}*/
-
-unsigned short sumParamter(typ matrix[][ROW_SIZE], unsigned short rowLen, unsigned short colLen) {
-    unsigned short pos[2] = {0, 0};
-    unsigned short po2[2] = {1, 1};
-    return sumMatrix(matrix, rowLen, colLen, pos) - sumMatrix(matrix, rowLen - ONE, colLen - ONE, pos);
+unsigned short sumParamter(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short pos2[2] = {1, 1};
+    return sumMatrix(matrix, rowLen, colLen) - sumSubMatrix(matrix, rowLen - ONE, colLen - ONE,
+                                                            pos2);
 }
 
-//TODO check this Function
-void copyMatrix(typ matrix[][ROW_SIZE], typ result[][ROW_SIZE], unsigned short colLen, unsigned short rowLen,
+void copyMatrix(unsigned short rowLen, unsigned short colLen, unsigned short resultRowLen, unsigned short resultColLen,
+                typ matrix[rowLen][colLen], typ result[resultRowLen][resultColLen],
                 unsigned short pos[2]) {
     unsigned short offset;
     unsigned short offset2;
-    for (offset = pos[1]; offset < (rowLen + 1); offset++) {
-        for (offset2 = pos[0]; offset2 < (colLen + 1); offset2++) {
-            result[offset2][offset] = matrix[offset2 - 1][offset - 1];
+    for (offset = 0; offset < rowLen; offset++) {
+        for (offset2 = 0; offset2 < colLen; offset2++) {
+            result[(offset + pos[0])][(offset2 + pos[1])] = matrix[offset][offset2];
         }
     }
 }
