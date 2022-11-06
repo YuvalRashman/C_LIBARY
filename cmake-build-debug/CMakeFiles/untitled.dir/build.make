@@ -52,10 +52,10 @@ RM = "C:\Program Files\JetBrains\CLion 2022.2.4\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY
+CMAKE_SOURCE_DIR = C:\Users\yrash\Documents\GitHub\C_LIBARY
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/untitled.dir/depend.make
@@ -71,30 +71,46 @@ include CMakeFiles/untitled.dir/flags.make
 CMakeFiles/untitled.dir/main.c.obj: CMakeFiles/untitled.dir/flags.make
 CMakeFiles/untitled.dir/main.c.obj: ../main.c
 CMakeFiles/untitled.dir/main.c.obj: CMakeFiles/untitled.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/untitled.dir/main.c.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/untitled.dir/main.c.obj -MF CMakeFiles\untitled.dir\main.c.obj.d -o CMakeFiles\untitled.dir\main.c.obj -c C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/untitled.dir/main.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/untitled.dir/main.c.obj -MF CMakeFiles\untitled.dir\main.c.obj.d -o CMakeFiles\untitled.dir\main.c.obj -c C:\Users\yrash\Documents\GitHub\C_LIBARY\main.c
 
 CMakeFiles/untitled.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/untitled.dir/main.c.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\main.c > CMakeFiles\untitled.dir\main.c.i
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\yrash\Documents\GitHub\C_LIBARY\main.c > CMakeFiles\untitled.dir\main.c.i
 
 CMakeFiles/untitled.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/untitled.dir/main.c.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\main.c -o CMakeFiles\untitled.dir\main.c.s
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\yrash\Documents\GitHub\C_LIBARY\main.c -o CMakeFiles\untitled.dir\main.c.s
+
+CMakeFiles/untitled.dir/TicTacToe.c.obj: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/TicTacToe.c.obj: ../TicTacToe.c
+CMakeFiles/untitled.dir/TicTacToe.c.obj: CMakeFiles/untitled.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/untitled.dir/TicTacToe.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/untitled.dir/TicTacToe.c.obj -MF CMakeFiles\untitled.dir\TicTacToe.c.obj.d -o CMakeFiles\untitled.dir\TicTacToe.c.obj -c C:\Users\yrash\Documents\GitHub\C_LIBARY\TicTacToe.c
+
+CMakeFiles/untitled.dir/TicTacToe.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/untitled.dir/TicTacToe.c.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\yrash\Documents\GitHub\C_LIBARY\TicTacToe.c > CMakeFiles\untitled.dir\TicTacToe.c.i
+
+CMakeFiles/untitled.dir/TicTacToe.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/untitled.dir/TicTacToe.c.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\yrash\Documents\GitHub\C_LIBARY\TicTacToe.c -o CMakeFiles\untitled.dir\TicTacToe.c.s
 
 # Object files for target untitled
 untitled_OBJECTS = \
-"CMakeFiles/untitled.dir/main.c.obj"
+"CMakeFiles/untitled.dir/main.c.obj" \
+"CMakeFiles/untitled.dir/TicTacToe.c.obj"
 
 # External object files for target untitled
 untitled_EXTERNAL_OBJECTS =
 
 untitled.exe: CMakeFiles/untitled.dir/main.c.obj
+untitled.exe: CMakeFiles/untitled.dir/TicTacToe.c.obj
 untitled.exe: CMakeFiles/untitled.dir/build.make
 untitled.exe: CMakeFiles/untitled.dir/linklibs.rsp
 untitled.exe: CMakeFiles/untitled.dir/objects1.rsp
 untitled.exe: CMakeFiles/untitled.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable untitled.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable untitled.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\untitled.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -106,6 +122,6 @@ CMakeFiles/untitled.dir/clean:
 .PHONY : CMakeFiles/untitled.dir/clean
 
 CMakeFiles/untitled.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles\untitled.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\yrash\Documents\GitHub\C_LIBARY C:\Users\yrash\Documents\GitHub\C_LIBARY C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles\untitled.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/untitled.dir/depend
 

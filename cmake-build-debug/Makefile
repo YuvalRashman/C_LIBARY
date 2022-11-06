@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2022.2.4\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY
+CMAKE_SOURCE_DIR = C:\Users\yrash\Documents\GitHub\C_LIBARY
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\yrash\OneDrive\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\yrash\Documents\GitHub\C_LIBARY\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,30 @@ untitled/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/build
 .PHONY : untitled/fast
 
+TicTacToe.obj: TicTacToe.c.obj
+.PHONY : TicTacToe.obj
+
+# target to build an object file
+TicTacToe.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/TicTacToe.c.obj
+.PHONY : TicTacToe.c.obj
+
+TicTacToe.i: TicTacToe.c.i
+.PHONY : TicTacToe.i
+
+# target to preprocess a source file
+TicTacToe.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/TicTacToe.c.i
+.PHONY : TicTacToe.c.i
+
+TicTacToe.s: TicTacToe.c.s
+.PHONY : TicTacToe.s
+
+# target to generate assembly for a file
+TicTacToe.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/TicTacToe.c.s
+.PHONY : TicTacToe.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -161,6 +185,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... untitled
+	@echo ... TicTacToe.obj
+	@echo ... TicTacToe.i
+	@echo ... TicTacToe.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
