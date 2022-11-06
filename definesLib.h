@@ -14,4 +14,5 @@
 #define ZERO 0
 #define ONE 1
 #define TWO 2
+#define NINE 9
 #define TEN 10
