@@ -1,3 +1,4 @@
+/*
 #include <stdio.h>
 #include "stringL.h"
 #include "matrix.h"
@@ -11,3 +12,4 @@ void main() {
     unsigned short pos[2] = {0, 0};
     printf("%d", countNeighbors(4, 4, pos));
 }
+*/
