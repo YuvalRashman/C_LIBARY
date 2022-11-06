@@ -7,6 +7,12 @@
 
 typedef unsigned short typ;
 
+typ maxValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]);
+
+typ minValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]);
+
+unsigned short sumMatrixRow(short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short row);
+
 unsigned short sumMatrixRow(short rowLen, unsigned short colLen, typ matrix[rowLen][colLen],
                             unsigned short row) {
     unsigned short sum = ZERO;
@@ -70,12 +76,60 @@ unsigned short sumNeighbors(unsigned short rowLen, unsigned short colLen, typ ma
     return ((matrix[pos[0], pos[1]]) - sumSubMatrix(rowLen, colLen, matrix, pos, 3, 3));
 }
 
-unsigned short maxNeighbors() {
-    
+void fillMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], typ value) {
+    unsigned short offsetRow;
+    unsigned short offsetCol;
+    for (offsetRow = 0; offsetRow < rowLen; offsetRow++) {
+        for (offsetCol = 0; offsetCol < colLen; offsetCol++) {
+            matrix[offsetRow][offsetCol] = value;
+        }
+    }
 }
 
-unsigned short minNeighbors() {
+void copyMatrix(unsigned short rowLen, unsigned short colLen, unsigned short resultRowLen, unsigned short resultColLen,
+                typ matrix[rowLen][colLen], typ result[resultRowLen][resultColLen],
+                unsigned short pos[2]) {
+    unsigned short offset;
+    unsigned short offset2;
+    for (offset = 0; offset < rowLen; offset++) {
+        for (offset2 = 0; offset2 < colLen; offset2++) {
+            result[(offset + pos[0])][(offset2 + pos[1])] = matrix[offset][offset2];
+        }
+    }
+}
 
+typ maxValueInRow(unsigned short rowLen, short colLen, typ matrix[rowLen][colLen], unsigned short row) {
+    typ max = matrix[row][--colLen];
+    colLen--;
+    for (; colLen >= ZERO; colLen--) {
+        max = MAX(max, matrix[row][colLen]);
+    }
+    return max;
+}
+
+typ maxValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
+    unsigned short offset;
+    typ max = maxValueInRow(rowLen, colLen, matrix, 0);
+    for (offset = 1; offset < colLen; offset++) {
+        max = MAX(max, maxValueInRow(rowLen, colLen, matrix, offset));
+    }
+    return max;
+}
+
+unsigned short
+maxNeighbors(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short pos[2]) {
+    typ tempMatrix[3][3];
+    copyMatrix(rowLen, colLen, 3, 3, matrix, tempMatrix, pos);
+    tempMatrix[1][1] = minValueInMatrix(3, 3, tempMatrix);
+    return maxValueInMatrix(3, 3, tempMatrix);;
+}
+
+unsigned short
+minNeighbors(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short pos[2]) {
+    typ tempMatrix[3][3];
+    fillMatrix(tempMatrix, colLen, rowLen, maxValueInMatrix(rowLen, colLen, matrix));
+    copyMatrix(rowLen, colLen, 3, 3, matrix, tempMatrix, pos);
+    return minValueInMatrix(3, 3, tempMatrix);
 }
 
 unsigned short countNeighbors(unsigned short rowLen, unsigned short colLen, unsigned short pos[2]) {
@@ -91,7 +145,7 @@ unsigned short countNeighbors(unsigned short rowLen, unsigned short colLen, unsi
 void printMatrixRow(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen], unsigned short row) {
     unsigned short offset;
     for (offset = 0; offset < rowLen; offset++) {
-        printf("%d ", matrix[row][offset]);
+        printf("%c ", matrix[row][offset]);
     }
     printf("\n");
 }
@@ -166,15 +220,6 @@ unsigned short countValueInMatrix(unsigned short rowLen, unsigned short colLen, 
     return count;
 }
 
-typ maxValueInRow(unsigned short rowLen, short colLen, typ matrix[rowLen][colLen], unsigned short row) {
-    typ max = matrix[row][--colLen];
-    colLen--;
-    for (; colLen >= ZERO; colLen--) {
-        max = MAX(max, matrix[row][colLen]);
-    }
-    return max;
-}
-
 typ minValueInRow(unsigned short rowLen, short colLen, typ matrix[rowLen][colLen], unsigned short row) {
     typ min = matrix[row][--colLen];
     colLen--;
@@ -202,20 +247,12 @@ typ minValueInCol(short rowLen, unsigned short colLen, typ matrix[rowLen][colLen
     return min;
 }
 
-typ maxValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
-    unsigned short offset;
-    typ max = maxValueInRow(rowLen, colLen, matrix, 0);
-    for (offset = 1; offset < colLen; offset++) {
-        max = MAX(max, maxValueInRow(rowLen, colLen, matrix, offset));
-    }
-    return max;
-}
 
 typ minValueInMatrix(unsigned short rowLen, unsigned short colLen, typ matrix[rowLen][colLen]) {
     unsigned short offset;
     typ min = minValueInRow(rowLen, colLen, matrix, 0);
     for (offset = 1; offset < colLen; offset++) {
-        min = MIN(min, maxValueInRow(rowLen, colLen, matrix, offset));
+        min = MIN(min, minValueInRow(rowLen, colLen, matrix, offset));
     }
     return min;
 }
@@ -295,14 +332,3 @@ unsigned short sumPerimeter(unsigned short rowLen, unsigned short colLen, typ ma
                                                             pos2, (rowLen - 2), (colLen - 2));
 }
 
-void copyMatrix(unsigned short rowLen, unsigned short colLen, unsigned short resultRowLen, unsigned short resultColLen,
-                typ matrix[rowLen][colLen], typ result[resultRowLen][resultColLen],
-                unsigned short pos[2]) {
-    unsigned short offset;
-    unsigned short offset2;
-    for (offset = 0; offset < rowLen; offset++) {
-        for (offset2 = 0; offset2 < colLen; offset2++) {
-            result[(offset + pos[0])][(offset2 + pos[1])] = matrix[offset][offset2];
-        }
-    }
-}
