@@ -1,3 +1,4 @@
+/*
 #include <stdio.h>
 #include "stringL.h"
 #include "matrix.h"
@@ -62,3 +63,4 @@ unsigned short subArea(unsigned short rowLen,
 void main() {
     printf("%d", subArea(7, 1, 29, 11, 19));
 }
+*/

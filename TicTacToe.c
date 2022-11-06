@@ -2,20 +2,18 @@
 // Created by yrash on 11/6/2022.
 //
 
-#pragma warning(disable:4996)
-
 #include <stdio.h>
 #include "definesLib.h"
 
-#define boolToSign(sign) sign ? 'X' : 'O'
+#define SignToBool(sign) sign == 'X' ? 1 : 0
 
-unsigned short markPos(unsigned short* hasMask, unsigned short* xOrOMask, unsigned short pos[2]) {
+unsigned short markPos(unsigned short *hasMask, unsigned short *xOrOMask, unsigned short pos[2]) {
     *hasMask |= (1 << (pos[0] * 3 + pos[1]));
     *xOrOMask |= (1 << (pos[0] * 3 + pos[1]));
 }
 
 void printXorO(BOOL xOrO) { // always 1
-    xOrO ? printf("X ") : printf(" O");
+    (xOrO > 0) ? printf("X ") : printf(" O");
 }
 
 void printNone() {
@@ -25,9 +23,10 @@ void printNone() {
 void printRow(unsigned short hasMask, unsigned short xOrOMask, unsigned short row) {
     unsigned short colume;
     unsigned short pos;
+    unsigned temp;
     for (colume = 0; colume < 3; colume++) {
         pos = (1 << (row * 3 + colume));
-        hasMask& pos ? printXorO((xOrOMask & pos)) : printNone();
+        hasMask & pos ? printXorO((xOrOMask & pos) != 0) : printNone();
     }
 }
 
@@ -63,28 +62,23 @@ BOOL isWinner(unsigned short hasMask, unsigned short xOrOMask) {
 void runGame() {
     unsigned short hasMask = 0;
     unsigned short xOrOMask = 0;
-    unsigned short pos[2];
-    unsigned short row;
-    unsigned short col;
-    unsigned short temp;
+    unsigned short pos[2] = {0};
     BOOL win = 0;
-    BOOL sign;
+    BOOL sign = 'X';
     printBoard(hasMask, xOrOMask);
     while (!win) {
         printf("enter row:");
-        scanf("%d", &row);
+        scanf("%d", &pos[0]);
         printf("enter col:");
-        scanf("%d", &col);
-        pos[0] = row;
-        pos[1] = col;
-        printf("enter x or o (1 or 0)");
-        scanf("%d", &sign);
-        hasMask |= 1 << (pos[0] * 3 + pos[1]);
-        xOrOMask |= (sign << (pos[0] * 3 + pos[1]));
+        scanf("%d", &pos[1]);
+        printf("enter x or o (1 or 0)\n");
+        scanf(" %c", &sign);
+        hasMask |= (1 << (pos[0] * 3 + pos[1]));
+        xOrOMask |= ((SignToBool(sign)) << (pos[0] * 3 + pos[1]));
         win = isWinner(hasMask, xOrOMask);
         printBoard(hasMask, xOrOMask);
     }
-    printf("%c won!!!", boolToSign(sign));
+    printf("%c won!!!", sign);
 }
 
 void main() {
