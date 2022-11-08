@@ -76,6 +76,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/yrash/OneDrive/Documents/GitHub/C_LIBARY/TicTacToeArrayV.c">
+			<Option target="untitled"/>
+		</Unit>
 		<Unit filename="C:/Users/yrash/OneDrive/Documents/GitHub/C_LIBARY/definesLib.h">
 			<Option target="untitled"/>
 		</Unit>

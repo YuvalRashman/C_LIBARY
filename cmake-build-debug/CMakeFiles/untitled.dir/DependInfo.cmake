@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/yrash/OneDrive/Documents/GitHub/C_LIBARY/TicTacToeArrayV.c" "CMakeFiles/untitled.dir/TicTacToeArrayV.c.obj" "gcc" "CMakeFiles/untitled.dir/TicTacToeArrayV.c.obj.d"
   "C:/Users/yrash/OneDrive/Documents/GitHub/C_LIBARY/main.c" "CMakeFiles/untitled.dir/main.c.obj" "gcc" "CMakeFiles/untitled.dir/main.c.obj.d"
   )
 

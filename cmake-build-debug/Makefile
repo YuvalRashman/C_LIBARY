@@ -128,6 +128,30 @@ untitled/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/build
 .PHONY : untitled/fast
 
+TicTacToeArrayV.obj: TicTacToeArrayV.c.obj
+.PHONY : TicTacToeArrayV.obj
+
+# target to build an object file
+TicTacToeArrayV.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/TicTacToeArrayV.c.obj
+.PHONY : TicTacToeArrayV.c.obj
+
+TicTacToeArrayV.i: TicTacToeArrayV.c.i
+.PHONY : TicTacToeArrayV.i
+
+# target to preprocess a source file
+TicTacToeArrayV.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/TicTacToeArrayV.c.i
+.PHONY : TicTacToeArrayV.c.i
+
+TicTacToeArrayV.s: TicTacToeArrayV.c.s
+.PHONY : TicTacToeArrayV.s
+
+# target to generate assembly for a file
+TicTacToeArrayV.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\untitled.dir\build.make CMakeFiles/untitled.dir/TicTacToeArrayV.c.s
+.PHONY : TicTacToeArrayV.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -161,6 +185,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... untitled
+	@echo ... TicTacToeArrayV.obj
+	@echo ... TicTacToeArrayV.i
+	@echo ... TicTacToeArrayV.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

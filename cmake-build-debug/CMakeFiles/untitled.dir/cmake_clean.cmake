@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/untitled.dir/TicTacToeArrayV.c.obj"
+  "CMakeFiles/untitled.dir/TicTacToeArrayV.c.obj.d"
   "CMakeFiles/untitled.dir/main.c.obj"
   "CMakeFiles/untitled.dir/main.c.obj.d"
   "libuntitled.dll.a"
