@@ -3,7 +3,7 @@
 #include "matrix.h"
 
 #define THREE 3
-
+/*
 BOOL isMagicSquare(unsigned short len, short matrix[len][len]) {
     BOOL flag = 1;
     unsigned short offset = 0;
@@ -14,9 +14,9 @@ BOOL isMagicSquare(unsigned short len, short matrix[len][len]) {
                 (currentSize == sumMatrixRow(len, len, matrix, offset++)));
     }
     return flag;
-}
+}*/
 
 void main() {
     unsigned short arr[3][3] = {{8,1,6}, {3,5,7}, {4,9,2}};
-    printf("%d", isMagicSquare(3, arr));
+   /* printf("%d", isMagicSquare(3, arr));*/
 }
