@@ -1,4 +1,0 @@
-C:\Users\yrash\AppData\Local\JetBrains\CLion2022.2\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /cygdrive/c/Users/yrash/Documents/GitHub/C_LIBARY -B /cygdrive/c/Users/yrash/Documents/GitHub/C_LIBARY/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /cygdrive/c/Users/yrash/Documents/GitHub/C_LIBARY/cmake-build-debug
