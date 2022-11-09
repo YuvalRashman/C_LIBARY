@@ -15,4 +15,5 @@
 #define ONE 1
 #define TWO 2
 #define THREE 3
+#define EIGHT 8
 #define TEN 10
