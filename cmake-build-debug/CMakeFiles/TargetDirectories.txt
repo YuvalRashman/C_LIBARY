@@ -1,3 +1,0 @@
-C:/Users/yrash/GitHub/C_LIBARY/cmake-build-debug/CMakeFiles/untitled.dir
-C:/Users/yrash/GitHub/C_LIBARY/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/yrash/GitHub/C_LIBARY/cmake-build-debug/CMakeFiles/rebuild_cache.dir
