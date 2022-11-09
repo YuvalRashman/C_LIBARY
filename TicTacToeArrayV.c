@@ -1,9 +1,9 @@
+/*
 //
 // Created by yrash on 11/8/2022.
 //
-
-#include "matrix.h"
 #include <stdio.h>
+#include "matrix.h"
 #include "definesLib.h"
 
 void initBoard(char matrix[THREE][THREE]) {
@@ -19,7 +19,7 @@ void markPos(char matrix[THREE][THREE], BOOL xOrC, unsigned short pos[2]) {
     matrix[pos[0]][pos[1]] = xOrC ? 'X' : 'O';
 }
 
-BOOL isThereThreeInColOrRow(char matrix[3][3], char value, BOOL dimension){
+BOOL isThereThreeInColOrRow(char matrix[3][3], char value, BOOL dimension) {
     unsigned short offset = 0;
     unsigned short sum;
     BOOL flag = 0;
@@ -31,7 +31,7 @@ BOOL isThereThreeInColOrRow(char matrix[3][3], char value, BOOL dimension){
     return flag;
 }
 
-BOOL isThereThreeInDiag(char matrix[3][3], char value, BOOL mainOrSec){
+BOOL isThereThreeInDiag(char matrix[3][3], char value, BOOL mainOrSec) {
     unsigned short sum;
     BOOL flag = 0;
     sum = mainOrSec ? sumMatrixMainDiagonal(3, matrix) : sumMatrixSecondaryDiagonal(3, matrix);
@@ -52,7 +52,7 @@ BOOL isWinner(char matrix[THREE][THREE]) {
     return flag;
 }
 
-void runGameXmitrix(){
+void runGameXmitrix() {
     printf("X is %d\n", 'X');
     printf("O is %d\n", 'O');
     printf(" - is %d\n", '-');
@@ -63,7 +63,7 @@ void runGameXmitrix(){
     unsigned short pos[2];
     printBoard(board);
     unsigned short count = 0;
-    while (!flagIsWinner && count < 9){
+    while (!flagIsWinner && count < 9) {
         printf("enter row: \n");
         scanf("%d", &pos[0]);
         printf("enter col: \n");
@@ -75,10 +75,11 @@ void runGameXmitrix(){
         flagIsWinner = isWinner(board);
         printBoard(board);
     }
-    if(count < 9) {
+    if (count < 9) {
         printf("the winner is: %c", sign);
-    }
-    else{
+    } else {
         printf("tie");
     }
 }
+
+*/
