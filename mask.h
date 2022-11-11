@@ -5,6 +5,12 @@
 #include "definesLib.h"
 
 #define MASK_MAX_SIZE 32
+
+#define IS_ALL_BITS_OFF(mask) mask == 0
+#define IS_ALL_BITS_ON(mask) IS_ALL_BITS_OFF(~mask)
+
+#define TURN_ON_BIT(size) (ONE << (size - ONE))
+
 typedef unsigned int typ; // we chose max 32 bits can be change
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -22,7 +28,7 @@ typedef unsigned int typ; // we chose max 32 bits can be change
 //--------------------------------------------------------------------------------------------------------------------
 void initMask(typ *mask, unsigned short usSize) {
     //*mask = (1 << usSize) - 1; problem if usSize equal to typ size
-    typ temp = (ONE << (usSize - ONE));
+    typ temp = TURN_ON_BIT(usSize);
     *mask = temp;
     temp = ~(~temp + ONE);
     *mask |= temp;
@@ -60,28 +66,26 @@ void turnOnUnusedBits(typ *mask, unsigned short usSize) {
 //
 //--------------------------------------------------------------------------------------------------------------------
 BOOL isBitOn(typ mask, unsigned short usBitIndex) {
-    return mask & (ONE << (usBitIndex - ONE));
+    return mask & (TURN_ON_BIT(usBitIndex)));
 }
 
 void addMasks(typ mask1, typ mask2, typ *result) {
     result = (mask1 | mask2);
 }
 
-int turnOnBit(typ mask, int place) {
-    return (mask | (ONE << (place - ONE)));
+int turnOnBit(typ mask, int usBitIndex) {
+    return (mask | (TURN_ON_BIT(usBitIndex)));
 }
 
-int turnOffBit(int numBin, int place) {
-    return (numBin & ~(ONE << (place - ONE)));
+int turnOffBit(typ mask, int usBitIndex) {
+    return (mask & ~(TURN_ON_BIT(usBitIndex)));
 }
 
-int changeBit(int numBin, int place)
-{
-    return (numBin ^ (ONE << (place - ONE)));
+int changeBit(typ mask, int usBitIndex) {
+    return (mask ^ TURN_ON_BIT(usBitIndex));
 }
 
-int shiftMaskLeft(typ mask, int nN)
-{
+int shiftMaskLeft(typ mask, unsigned int nN) {
     return (mask << nN) | (mask >> (MASK_MAX_SIZE - nN));
 }
 
@@ -104,12 +108,11 @@ int shiftMaskLeft(typ mask, int nN)
 // Return Value : the new number with the nibles
 //----------------------------------------------------------------------
 
-int copyNibleByLengthOfNum(int numBin, int length)
-{
+int copyNibleByLengthOfNum(int numBin, int length) {
     int count, shift = 4, newNumBin = numBin;
-    for (count = 0; count < length; shift += 4, count++)
-    {
-        int tmp = numBin << shift; // we move the original nibles as the length, every time shift will grow by 4 so we go to the nible before the last one
+    for (count = 0; count < length; shift += 4, count++) {
+        int tmp = numBin
+                << shift; // we move the original nibles as the length, every time shift will grow by 4 so we go to the nible before the last one
         // for example: 0xf << 8
         // 0xf00
 
@@ -136,12 +139,12 @@ int copyNibleByLengthOfNum(int numBin, int length)
 //
 // Return Value : the relocated number
 //----------------------------------------------------------------------
-unsigned int decimalToHex(int num)
-{
+unsigned int decimalToHex(int num) {
     unsigned int numBin = 0;
     typ mask = 0xf;
 
-    while ((numBin & mask) == 0) // while the last nibel is bigger then 0, represent the nmber in hex, keep the same number
+    while ((numBin & mask) ==
+           0) // while the last nibel is bigger then 0, represent the nmber in hex, keep the same number
     {
         numBin >>= 4;
         numBin |= ((num % TEN) << 28);
