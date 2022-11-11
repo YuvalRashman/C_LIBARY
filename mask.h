@@ -14,8 +14,8 @@
 typedef unsigned int typ; // we chose max 32 bits can be change
 
 //--------------------------------------------------------------------------------------------------------------------
-//                                                    initMask
-//                                                    --------
+//                                                      initMask
+//                                                      --------
 //
 // General : The function initialize mask (put 1 in all bits) by specific usSize.
 //
@@ -65,24 +65,55 @@ void turnOnUnusedBits(typ *mask, unsigned short usSize) {
 // Return Value : boolean that indicated if the bit is on or off.
 //
 //--------------------------------------------------------------------------------------------------------------------
-BOOL isBitOn(typ mask, unsigned short usBitIndex) {
+BOOL isIndexBitOn(typ mask, unsigned short usBitIndex) {
     return mask & (TURN_ON_BIT(usBitIndex)));
 }
 
-void addMasks(typ mask1, typ mask2, typ *result) {
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    combineMasks
+//                                                    ------------
+//
+// General : The function check if  a bit is on.
+//
+// Parameters :
+// mask - pointer to the mask we are going to  (In)
+// usBitIndex - the index of the bit (In)
+//
+// Return Value : boolean that indicated if the bit is on or off.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void combineMasks(typ mask1, typ mask2, typ *result) {
     result = (mask1 | mask2);
 }
 
-int turnOnBit(typ mask, int usBitIndex) {
-    return (mask | (TURN_ON_BIT(usBitIndex)));
+//----------------------------------------------------------------------
+//                      turnOnBit
+//
+// General : this function will turn on the bit in the place we want
+// for example:
+// NBitIndex  = 0
+// we want to turn on the 4 bit ( 8 - 1000)
+// indexOfBit = 4
+//
+//
+//
+//
+// Parameters :
+// NBitIndex - the regular number
+// indexOfBit - our mask
+//
+// Return Value : the same number with the turned on bit
+//----------------------------------------------------------------------
+void turnOnBit(typ *mask, int usBitIndex) {
+    *mask |= TURN_ON_BIT(usBitIndex);
 }
 
-int turnOffBit(typ mask, int usBitIndex) {
-    return (mask & ~(TURN_ON_BIT(usBitIndex)));
+void turnOffBit(typ *mask, int usBitIndex) {
+    *mask &= ~TURN_ON_BIT(usBitIndex);
 }
 
-int changeBit(typ mask, int usBitIndex) {
-    return (mask ^ TURN_ON_BIT(usBitIndex));
+void changeBit(typ *mask, int usBitIndex) {
+    *mask ^= TURN_ON_BIT(usBitIndex);
 }
 
 int shiftMaskLeft(typ mask, unsigned int nN) {
