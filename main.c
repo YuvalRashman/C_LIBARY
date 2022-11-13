@@ -59,6 +59,28 @@ unsigned short subArea(unsigned short rowLen,
                calculateSize(rowLen, secondStart, secondEnd));
 }
 
+
+char* addressOfChar(char *str, char ch){
+    char *temp = str;
+    while ((*(temp)) * (*(temp++) == ch));
+    return temp--;
+}
+
+BOOL exsist(char *str, char  ch){
+    char *temp = addressOfChar(str, ch);
+    return *temp != '\0';
+}
+
+unsigned short countChar(char *str, char ch){
+    char *temp = addressOfChar(str, ch);
+    unsigned short counter = 0;
+    while (*temp){
+        counter++;
+        temp = addressOfChar(temp++, ch);
+    }
+    return counter;
+}
+
 void main() {
     printf("%d", subArea(7, 1, 29, 11, 19));
 }
