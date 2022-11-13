@@ -61,6 +61,8 @@ void toBaseTen(unsigned short usNum, unsigned short usBase, unsigned short *pusR
 //
 // Return Value : None.
 //
+// O(1)
+// T(n) = 3
 //--------------------------------------------------------------------------------------------------------------------
 void replaceNumbers(unsigned short *pusNum1, unsigned short *pusNum2) {
     *pusNum1 ^= *pusNum2;
@@ -81,6 +83,8 @@ void replaceNumbers(unsigned short *pusNum1, unsigned short *pusNum2) {
 //
 // Return Value : None.
 //
+// O(1)
+// T(n) = 1
 //--------------------------------------------------------------------------------------------------------------------
 void sumTwoNumbers(unsigned short *pusNum1, unsigned short *pusNum2, unsigned short *pusResult) {
     *pusResult = *pusNum1 + *pusNum2;
@@ -98,6 +102,8 @@ void sumTwoNumbers(unsigned short *pusNum1, unsigned short *pusNum2, unsigned sh
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 3n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void sumDigits(unsigned short usNum, unsigned short *pusResult) {
     *pusResult = ZERO;
@@ -119,6 +125,8 @@ void sumDigits(unsigned short usNum, unsigned short *pusResult) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 4n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void sumEvenDigits(unsigned short usNum, unsigned short *pusResult) {
     unsigned short usDigit;
@@ -142,6 +150,8 @@ void sumEvenDigits(unsigned short usNum, unsigned short *pusResult) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 7n + 4
 //--------------------------------------------------------------------------------------------------------------------
 void sumOddDigits(unsigned short usNum, unsigned short *pusResult) {
     unsigned short usTemp = ZERO;
@@ -163,6 +173,8 @@ void sumOddDigits(unsigned short usNum, unsigned short *pusResult) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 4n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void isDigitInNumber(unsigned short usNum, unsigned short usDigit, BOOL *psResult) {
     *psResult = FALSE;
@@ -184,6 +196,8 @@ void isDigitInNumber(unsigned short usNum, unsigned short usDigit, BOOL *psResul
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 3n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void countDigits(unsigned short usNum, unsigned short *pusCount) {
     *pusCount = ZERO;
@@ -206,6 +220,8 @@ void countDigits(unsigned short usNum, unsigned short *pusCount) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 5n + 4
 //--------------------------------------------------------------------------------------------------------------------
 void combineTwoNumbers(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult) {
     *pusResult = ZERO;
@@ -228,6 +244,8 @@ void combineTwoNumbers(unsigned short usNum1, unsigned short usNum2, unsigned sh
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 3n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void witchDigitsInNumber(unsigned short usNum, unsigned short *pusMask) {
     *pusMask = ZERO;
@@ -250,6 +268,8 @@ void witchDigitsInNumber(unsigned short usNum, unsigned short *pusMask) {
 //
 // Return Value : None.
 //
+// O(1)
+// T(n) = 6n + 3
 //--------------------------------------------------------------------------------------------------------------------
 void isNumbersShareDigits(unsigned short unNum1, unsigned short unNum2, BOOL *psResult) {
     unsigned short usMask1;
@@ -271,6 +291,8 @@ void isNumbersShareDigits(unsigned short unNum1, unsigned short unNum2, BOOL *ps
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 6n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void newNumberFromEvenDigits(unsigned short unNum, unsigned short *pusResult) {
     unsigned short usDigit;
@@ -298,6 +320,8 @@ void newNumberFromEvenDigits(unsigned short unNum, unsigned short *pusResult) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 6n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void newNumberFromOddDigits(unsigned short unNum, unsigned short *pusResult) {
     unsigned short usDigit;
@@ -325,6 +349,8 @@ void newNumberFromOddDigits(unsigned short unNum, unsigned short *pusResult) {
 //
 // Return Value : None.
 //
+// O(log(n))
+// T(n) = 2log(n) + 2
 //--------------------------------------------------------------------------------------------------------------------
 void isPrimary(unsigned short unNum, BOOL *psResult) {
     unsigned short usSqrtN;
@@ -349,6 +375,8 @@ void isPrimary(unsigned short unNum, BOOL *psResult) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 3n + 3
 //--------------------------------------------------------------------------------------------------------------------
 void isPerfectNumber(unsigned short usNum, BOOL *psResult) {
     unsigned short usSum = ONE;
@@ -372,6 +400,8 @@ void isPerfectNumber(unsigned short usNum, BOOL *psResult) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 4n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void flipNumber(unsigned short usNum, unsigned short *pusResult) {
     *pusResult = ZERO;
@@ -395,6 +425,8 @@ void flipNumber(unsigned short usNum, unsigned short *pusResult) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 2n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void powNumber(unsigned short usNum, unsigned short usExponent, unsigned short *pusResult) {
     *pusResult = ONE;
@@ -416,6 +448,8 @@ void powNumber(unsigned short usNum, unsigned short usExponent, unsigned short *
 //
 // Return Value : None.
 //
+// O(1)
+// T(n) = 7
 //--------------------------------------------------------------------------------------------------------------------
 void sqrtNumber(short sNum, short sExponent, unsigned short *pusResult) {
     unsigned short usAccuracy = 100;
@@ -441,6 +475,8 @@ void sqrtNumber(short sNum, short sExponent, unsigned short *pusResult) {
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 2
 //--------------------------------------------------------------------------------------------------------------------
 void multiplyNumber(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult) {
     while (usNum2--) {
@@ -461,6 +497,8 @@ void multiplyNumber(unsigned short usNum1, unsigned short usNum2, unsigned short
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 3n + 1
 //--------------------------------------------------------------------------------------------------------------------
 void divideNumbers(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult) {
     *pusResult = ZERO;
@@ -483,6 +521,8 @@ void divideNumbers(unsigned short usNum1, unsigned short usNum2, unsigned short 
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 3n + 2
 //--------------------------------------------------------------------------------------------------------------------
 void getRemainder(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult) {
     divideNumbers(usNum1, usNum2, pusResult);
@@ -502,6 +542,8 @@ void getRemainder(unsigned short usNum1, unsigned short usNum2, unsigned short *
 //
 // Return Value : None.
 //
+// O(n)
+// T(n) = 5n + 2 
 //--------------------------------------------------------------------------------------------------------------------
 void toBaseTen(unsigned short usNum, unsigned short usBase, unsigned short *pusResult) {
     unsigned short usPowNumber = ZERO;
