@@ -1,8 +1,9 @@
 #include <stdio.h>
-#include "stringL.h"
-#include "matrix.h"
+/*#include "stringL.h"
+#include "matrix.h"*/
+#include "numbersLibary.h"
 
-#define THREE 3
+/*#define THREE 3
 #define DIM_SIZE(len, value, colOrRow) (colOrRow ? value / len : value % len)
 
 //Ex1
@@ -79,8 +80,11 @@ unsigned short countChar(char *str, char ch){
         temp = addressOfChar(temp++, ch);
     }
     return counter;
-}
+}*/
 
 void main() {
-    printf("%d", subArea(7, 1, 29, 11, 19));
+    int num1 = 16384, num2 = 7;
+    int result;
+    sqrtNumber(num1, num2, &result);
+    printf("%d", result);
 }
