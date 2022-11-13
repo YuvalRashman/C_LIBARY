@@ -2,11 +2,6 @@
 
 #include "definesLib.h"
 
-#ifndef FUNCSIONS
-#include "../../../OneDrive/Documents/אורט סינגלובסקי/שיעורי בית מכללה/defineFunctions.h"
-#define FUNCSIONS
-#endif // !FUNCSIONS
-
 #define BOOL char
 
 int sqrt(int num);
