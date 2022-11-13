@@ -3,11 +3,51 @@
 //
 
 #include "definesLib.h"
-#include <math.h>
 
 #define IS_ODD_POINTERS(x) *x % TWO
 #define IS_EVEN_POINTERS(x) !IS_ODD_POINTERS(x)
 
+void replaceNumbers(unsigned short *pusNum1, unsigned short *pusNum2);
+
+void sumTwoNumbers(unsigned short *pusNum1, unsigned short *pusNum2, unsigned short *pusResult);
+
+void sumDigits(unsigned short usNum, unsigned short *pusResult);
+
+void sumEvenDigits(unsigned short usNum, unsigned short *pusResult);
+
+void sumOddDigits(unsigned short usNum, unsigned short *pusResult);
+
+void isDigitInNumber(unsigned short usNum, unsigned short usDigit, BOOL *psResult);
+
+void countDigits(unsigned short usNum, unsigned short *pusCount);
+
+void combineTwoNumbers(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult);
+
+void witchDigitsInNumber(unsigned short usNum, unsigned short *pusMask);
+
+void isNumbersShareDigits(unsigned short unNum1, unsigned short unNum2, BOOL *psResult);
+
+void newNumberFromEvenDigits(unsigned short unNum, unsigned short *pusResult);
+
+void newNumberFromOddDigits(unsigned short unNum, unsigned short *pusResult);
+
+void isPrimary(unsigned short unNum, BOOL *psResult);
+
+void isPerfectNumber(unsigned short usNum, BOOL *psResult);
+
+void flipNumber(unsigned short usNum, unsigned short *pusResult);
+
+void powNumber(unsigned short usNum, unsigned short usExponent, unsigned short *pusResult);
+
+void sqrtNumber(short sNum, short sExponent, unsigned short *pusResult);
+
+void multiplyNumber(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult);
+
+void divideNumbers(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult);
+
+void getRemainder(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult);
+
+void toBaseTen(unsigned short usNum, unsigned short usBase, unsigned short *pusResult);
 
 //--------------------------------------------------------------------------------------------------------------------
 //                                                  replaceNumbers
@@ -16,54 +56,54 @@
 // General : The function replace two numbers.
 //
 // Parameters :
-// num1 - pointer to first number (In)
-// num2 - pointer to second number (In)
+// pusNum1 - pointer to first number (In)
+// pusNum2 - pointer to second number (In)
 //
 // Return Value : None.
 //
 //--------------------------------------------------------------------------------------------------------------------
-void replaceNumbers(unsigned short *num1, unsigned short *num2) {
-    *num1 ^= *num2;
-    *num2 ^= *num1;
-    *num1 ^= *num2;
+void replaceNumbers(unsigned short *pusNum1, unsigned short *pusNum2) {
+    *pusNum1 ^= *pusNum2;
+    *pusNum2 ^= *pusNum1;
+    *pusNum1 ^= *pusNum2;
 }
 
 //--------------------------------------------------------------------------------------------------------------------
 //                                                  sumTwoNumbers
 //                                                  -------------
 //
-// General : The function sum two numbers and save the result in pointer.
+// General : The function sum two numbers and save the pusResult in pointer.
 //
 // Parameters :
-// num1 - first number (In)
-// num2 - second number (In)
-// result - pointer to the parameter we are going to save the result (In)
+// pusNum1 - first number (In)
+// pusNum2 - second number (In)
+// pusResult - pointer to the parameter we are going to save the pusResult (In)
 //
 // Return Value : None.
 //
 //--------------------------------------------------------------------------------------------------------------------
-void sumTwoNumbers(unsigned short *num1, unsigned short *num2, unsigned short *result) {
-    *result = *num1 + *num2;
+void sumTwoNumbers(unsigned short *pusNum1, unsigned short *pusNum2, unsigned short *pusResult) {
+    *pusResult = *pusNum1 + *pusNum2;
 }
 
 //--------------------------------------------------------------------------------------------------------------------
 //                                                    sumDigits
 //                                                    ---------
 //
-// General : The function sum all the digits of a number and save the result in pointer.
+// General : The function sum all the digits of a number and save the pusResult in pointer.
 //
 // Parameters :
-// num - the number (In)
-// result - pointer to the parameter we are going to save the result (In)
+// usNum - the number (In)
+// pusResult - pointer to the parameter we are going to save the pusResult (In)
 //
 // Return Value : None.
 //
 //--------------------------------------------------------------------------------------------------------------------
-void sumDigits(unsigned short num, unsigned short *result) {
-    *result = ZERO;
-    while (num) {
-        *result += num % TEN;
-        num /= TEN;
+void sumDigits(unsigned short usNum, unsigned short *pusResult) {
+    *pusResult = ZERO;
+    while (usNum) {
+        *pusResult += usNum % TEN;
+        usNum /= TEN;
     }
 }
 
@@ -71,22 +111,22 @@ void sumDigits(unsigned short num, unsigned short *result) {
 //                                                  sumEvenDigits
 //                                                  -------------
 //
-// General : The function sum the even digits of a number and save the result in pointer.
+// General : The function sum the even digits of a number and save the pusResult in pointer.
 //
 // Parameters :
-// num - the number (In)
-// result - pointer to the parameter we are going to save the result (In)
+// usNum - the number (In)
+// pusResult - pointer to the parameter we are going to save the pusResult (In)
 //
 // Return Value : None.
 //
 //--------------------------------------------------------------------------------------------------------------------
-void sumEvenDigits(unsigned short num, unsigned short *result) {
-    *result = ZERO;
-    unsigned short digit;
-    while (num) {
-        digit = num % TEN;
-        *result += IS_EVEN(digit) * digit;
-        num /= TEN;
+void sumEvenDigits(unsigned short usNum, unsigned short *pusResult) {
+    unsigned short usDigit;
+    *pusResult = ZERO;
+    while (usNum) {
+        usDigit = usNum % TEN;
+        *pusResult += IS_EVEN(usDigit) * usDigit;
+        usNum /= TEN;
     }
 }
 
@@ -94,41 +134,41 @@ void sumEvenDigits(unsigned short num, unsigned short *result) {
 //                                                  sumOddDigits
 //                                                  -------------
 //
-// General : The function sum the odd digits of a number and save the result in pointer.
+// General : The function sum the odd digits of a number and save the pusResult in pointer.
 //
 // Parameters :
-// num - the number (In)
-// result - pointer to the parameter we are going to save the result (In)
+// usNum - the number (In)
+// pusResult - pointer to the parameter we are going to save the pusResult (In)
 //
 // Return Value : None.
 //
 //--------------------------------------------------------------------------------------------------------------------
-void sumOddDigits(unsigned short num, unsigned short *result) {
-    unsigned short temp = ZERO;
-    sumDigits(num, *result);
-    sumEvenDigits(num, &temp);
-    *result -= temp;
+void sumOddDigits(unsigned short usNum, unsigned short *pusResult) {
+    unsigned short usTemp = ZERO;
+    sumDigits(usNum, *pusResult);
+    sumEvenDigits(usNum, &usTemp);
+    *pusResult -= usTemp;
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-//                                                  isDigitInNumber
-//                                                  -------------
+//                                                  combineTwoNumbers
+//                                                  -----------------
 //
-// General : The function check if digit is in number.
+// General : This function combine two numbers to one.
 //
 // Parameters :
-// num - the number (In)
-// digit - the digit (In)
-// result -  pointer to the parameter we are going to save the result (In)
+// num1 - first number (In)
+// num2 - second number (In)
+// psResult -  pointer to the parameter we are going to save the psResult (In)
 //
 // Return Value : None.
 //
 //--------------------------------------------------------------------------------------------------------------------
-void isDigitInNumber(unsigned short num, unsigned short digit, BOOL *result) {
-    *result = FALSE;
-    while (num && !(*result)) {
-        *result = num % TEN == digit;
-        num /= TEN;
+void isDigitInNumber(unsigned short usNum, unsigned short usDigit, BOOL *psResult) {
+    *psResult = FALSE;
+    while (usNum && !(*psResult)) {
+        *psResult = usNum % TEN == usDigit;
+        usNum /= TEN;
     }
 }
 
@@ -136,145 +176,340 @@ void isDigitInNumber(unsigned short num, unsigned short digit, BOOL *result) {
 //                                                  countDigits
 //                                                  -------------
 //
-// General : This function count the number of digits in number.
+// General : This function pusCount the number of digits in number.
 //
 // Parameters :
-// num - the number (In)
-// count - pointer to the parameter we are going to save the result (In)
+// usNum - the number (In)
+// pusCount - pointer to the parameter we are going to save the result (In)
 //
 // Return Value : None.
 //
 //--------------------------------------------------------------------------------------------------------------------
-void countDigits(unsigned short num, unsigned short *count) {
-    *count = ZERO;
-    while (num) {
-        *count++;
-        num /= TEN;
+void countDigits(unsigned short usNum, unsigned short *pusCount) {
+    *pusCount = ZERO;
+    while (usNum) {
+        *pusCount++;
+        usNum /= TEN;
     }
 }
 
-void combineTwoNumbers(unsigned short num1, unsigned short num2, unsigned short *result) {
-    *result = ZERO;
-    countDigits(num2, result);
-    *result = num1 * pow(TEN, *result) + num2;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                  combineTwoNumbers
+//                                                  -----------------
+//
+// General : This function combine two numbers to one.
+//
+// Parameters :
+// usNum1 - first number (In)
+// usNum2 - second number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void combineTwoNumbers(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult) {
+    *pusResult = ZERO;
+    countDigits(usNum2, pusResult);
+    powNumber(TEN, *pusResult, pusResult);
+    *pusResult = usNum1 * (*pusResult) + usNum2;
 }
 
-void witchDigitsInNumebr(unsigned short num, unsigned short *mask) {
-    *mask = 0;
-    while (num) {
-        *mask |= ONE << (num % TEN);
-        num /= TEN;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                  witchDigitsInNumber
+//                                                  -----------------
+//
+// General : This function check witch digits in number.
+//
+// Parameters :
+// num1 - first number (In)
+// num2 - second number (In)
+// pusMask -  pointer to the parameter we are going to save the result, the result save as pusMask (10bits) each bit
+// represent a different digit (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void witchDigitsInNumber(unsigned short usNum, unsigned short *pusMask) {
+    *pusMask = ZERO;
+    while (usNum) {
+        *pusMask |= ONE << (usNum % TEN);
+        usNum /= TEN;
     }
 }
 
-void isNumbersShareDigits(unsigned short num1, unsigned short num2, BOOL *result) {
-    unsigned short mask1;
-    unsigned short mask2;
-    witchDigitsInNumebr(num1, &mask1);
-    witchDigitsInNumebr(num2, &mask2);
-    *result = (mask1 & mask2) != ZERO;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                  isNumbersShareDigits
+//                                                  -------------------
+//
+// General : This function check if two numbers share digits.
+//
+// Parameters :
+// unNum1 - first number (In)
+// unNum2 - second number (In)
+// psResult -  pointer to the parameter we are going to save the psResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void isNumbersShareDigits(unsigned short unNum1, unsigned short unNum2, BOOL *psResult) {
+    unsigned short usMask1;
+    unsigned short usMask2;
+    witchDigitsInNumber(unNum1, &usMask1);
+    witchDigitsInNumber(unNum2, &usMask2);
+    *psResult = (usMask1 & usMask2) != ZERO;
 }
 
-void newNumberFromEvenDigits(unsigned short num, unsigned short *result) {
-    *result = 0;
-    unsigned short digit;
-    unsigned BOOL con;
-    while (num) {
-        digit = num % 10;
-        con = IS_EVEN_POINTERS(&digit);
-        *result = *result * pow(TEN, con) + con * digit;
-        num /= TEN;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                  newNumberFromEvenDigits
+//                                                  ----------------------
+//
+// General : This function create new number from only the even digits of a number.
+//
+// Parameters :
+// unNum - the number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void newNumberFromEvenDigits(unsigned short unNum, unsigned short *pusResult) {
+    unsigned short usDigit;
+    unsigned short usPowNumber;
+    BOOL sCon;
+    *pusResult = ZERO;
+    while (unNum) {
+        usDigit = unNum % TEN;
+        sCon = IS_EVEN_POINTERS(&usDigit);
+        powNumber(TEN, sCon, &usPowNumber);
+        *pusResult = *pusResult * usPowNumber + sCon * usDigit;
+        unNum /= TEN;
     }
 }
 
-void newNumberFromOddDigits(unsigned short num, unsigned short *result) {
-    *result = 0;
-    unsigned short digit;
-    unsigned BOOL con;
-    while (num) {
-        digit = num % 10;
-        con = IS_ODD_POINTERS(&digit);
-        *result = *result * pow(TEN, con) + con * digit;
-        num /= TEN;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                  newNumberFromOddDigits
+//                                                  ----------------------
+//
+// General : This function create new number from only the Odd digits of a number.
+//
+// Parameters :
+// unNum - the number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void newNumberFromOddDigits(unsigned short unNum, unsigned short *pusResult) {
+    unsigned short usDigit;
+    unsigned short usPowNumber;
+    BOOL sCon;
+    *pusResult = ZERO;
+    while (unNum) {
+        usDigit = unNum % TEN;
+        sCon = IS_ODD_POINTERS(&usDigit);
+        powNumber(TEN, sCon, &usPowNumber);
+        *pusResult = *pusResult * usPowNumber + sCon * usDigit;
+        unNum /= TEN;
     }
 }
 
-BOOL isPrimary(unsigned short *num) {
-    unsigned sqrtN = sqrt(*num);
-    unsigned short currentNumber = THREE;
-    BOOL flag = IS_EVEN(*num) || currentNumber == TWO;
-    while (!flag && currentNumber < sqrtN) {
-        flag = *num % currentNumber;
-        currentNumber += TWO;
-    }
-    return flag;
-}
-
-char isPerfectNumber(unsigned short num, BOOL *result) {
-    unsigned short sum = ONE;
-    unsigned short currentNumber;
-    unsigned short maxNumber = num / TWO;
-    for (currentNumber = TWO; currentNumber <= maxNumber; currentNumber++) {
-        sum += currentNumber * !(num % currentNumber);
-    }
-
-    *result = (sum == num);
-}
-
-void flipNumber(unsigned short num, unsigned short *result) {
-    *result = ZERO;
-    while (num) {
-        *result * TEN;
-        *result += num % TEN;
-        num /= TEN;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    isPrimary
+//                                                    ---------
+//
+// General : This function check if a number is prime number.
+//
+// Parameters :
+// unNum - the number (In)
+// psResult -  pointer to the parameter we are going to save the psResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void isPrimary(unsigned short unNum, BOOL *psResult) {
+    unsigned short usSqrtN;
+    unsigned short usCurrentNumber = THREE;
+    sqrtNumber(unNum, TWO, &usSqrtN);
+    *psResult = IS_EVEN(unNum) || usCurrentNumber == TWO;
+    while (!(*psResult) && usCurrentNumber < usSqrtN) {
+        *psResult = unNum % usCurrentNumber;
+        usCurrentNumber += TWO;
     }
 }
 
-void powNumber(unsigned short num, unsigned short num2, unsigned short *result) {
-    *result = ONE;
-    while (num2--) {
-        *result *= num;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    isPerfectNumber
+//                                                    --------------
+//
+// General : This function check if a number is perfect number.
+//
+// Parameters :
+// usNum - the number (In)
+// psResult -  pointer to the parameter we are going to save the psResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void isPerfectNumber(unsigned short usNum, BOOL *psResult) {
+    unsigned short usSum = ONE;
+    unsigned short usCurrentNumber;
+    unsigned short usMaxNumber = usNum / TWO;
+    for (usCurrentNumber = TWO; usCurrentNumber <= usMaxNumber; usCurrentNumber++) {
+        usSum += usCurrentNumber * !(usNum % usCurrentNumber);
+    }
+    *psResult = (usSum == usNum);
+}
+
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    isPerfectNumber
+//                                                    --------------
+//
+// General : This function flip a number example: 123 turn to 321.
+//
+// Parameters :
+// usNum - the number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void flipNumber(unsigned short usNum, unsigned short *pusResult) {
+    *pusResult = ZERO;
+    while (usNum) {
+        *pusResult * TEN;
+        *pusResult += usNum % TEN;
+        usNum /= TEN;
     }
 }
 
-float foo(unsigned short x0, short m, short n) {
-    float x1 = x0 - (pow(x0, m) + n) / (m * pow(x0, m - ONE));
-    return x1;
-}
-
-void sqrtNumber(short num, short num2, unsigned short *result) {
-    unsigned short accuracy = 100;
-    *result = TWO;
-    num *= -ONE;
-    for (; accuracy; accuracy--) {
-        *result = foo(*result, num2, num);
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    powNumber
+//                                                    ---------
+//
+// General : This function power a number by n.
+//
+// Parameters :
+// usNum - the number to pow (In)
+// usExponent - the exponent number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void powNumber(unsigned short usNum, unsigned short usExponent, unsigned short *pusResult) {
+    *pusResult = ONE;
+    while (usExponent--) {
+        *pusResult *= usNum;
     }
 }
 
-void multiplyNumber(unsigned short num1, unsigned short num2, unsigned short *result) {
-    while (num2--) {
-        *result += num1;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    sqrtNumber
+//                                                    ---------
+//
+// General : This function sqrt a number by n.
+//
+// Parameters :
+// sNum - the number to sqrt (In)
+// sExponent - the exponent number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void sqrtNumber(short sNum, short sExponent, unsigned short *pusResult) {
+    unsigned short usAccuracy = 100;
+    unsigned short usPowNumber;
+    *pusResult = TWO;
+    sNum *= -ONE;
+    for (; usAccuracy; usAccuracy--) {
+        powNumber(*pusResult, sExponent, &usPowNumber);
+        *pusResult -= (usPowNumber + sNum) / (sExponent * (usPowNumber / *pusResult));
     }
 }
 
-void divideNumbers(unsigned short num1, unsigned short num2, unsigned short *result) {
-    *result = ZERO;
-    while ((num1 >= num2)) {
-        *result++;
-        num1 -= num2;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    multiplyNumber
+//                                                    ------------
+//
+// General : This function replace * and multiply two numbers.
+//
+// Parameters :
+// usNum1 - the first number (In)
+// usNum2 - the second number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void multiplyNumber(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult) {
+    while (usNum2--) {
+        *pusResult += usNum1;
     }
 }
 
-void getRemainder(unsigned short num1, unsigned short num2, unsigned short *result) {
-    divideNumbers(num1, num2, result);
-    *result = num1 - (*result * num2);
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    divideNumbers
+//                                                    ------------
+//
+// General : This function replace / and divide two numbers.
+//
+// Parameters :
+// usNum1 - the first number (In)
+// usNum2 - the second number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void divideNumbers(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult) {
+    *pusResult = ZERO;
+    while ((usNum1 >= usNum2)) {
+        *pusResult++;
+        usNum1 -= usNum2;
+    }
 }
 
-void toBaseTen(unsigned short num, unsigned short base, unsigned short *result) {
-    unsigned short powNumber = 0;
-    while (num) {
-        *result += (num % TEN) * pow(base, powNumber);
-        num /= TEN;
-        powNumber++;
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    divideNumbers
+//                                                    ------------
+//
+// General : This function replace % and get the remainder of two numbers.
+//
+// Parameters :
+// usNum1 - the first number (In)
+// usNum2 - the second number (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void getRemainder(unsigned short usNum1, unsigned short usNum2, unsigned short *pusResult) {
+    divideNumbers(usNum1, usNum2, pusResult);
+    *pusResult = usNum1 - (*pusResult * usNum2);
+}
+
+//--------------------------------------------------------------------------------------------------------------------
+//                                                    toBaseTen
+//                                                    ---------
+//
+// General : This function turn number from usBase n to usBase 10.
+//
+// Parameters :
+// usNum - the first number (In)
+// usBase - the usBase of the number usNum (In)
+// pusResult -  pointer to the parameter we are going to save the pusResult (In)
+//
+// Return Value : None.
+//
+//--------------------------------------------------------------------------------------------------------------------
+void toBaseTen(unsigned short usNum, unsigned short usBase, unsigned short *pusResult) {
+    unsigned short usPowNumber = ZERO;
+    unsigned short usTemp;
+    while (usNum) {
+        powNumber(usBase, usPowNumber, &usTemp);
+        *pusResult += (usNum % TEN) * usTemp;
+        usNum /= TEN;
+        usPowNumber++;
     }
 }
