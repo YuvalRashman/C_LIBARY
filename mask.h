@@ -35,6 +35,14 @@ void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTi
 
 unsigned int decimalAsHex(int nNum);
 
+BOOL isBitsOn(typ mask1, typ mask2, unsigned short maskSize);
+
+BOOL containMask(typ mask1, typ mask2, unsigned short usMaskSize);
+
+unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize);
+
+unsigned short countOnOff(typ mask, BOOL bBit);
+
 //--------------------------------------------------------------------------------------------------------------------
 //                                                         initMask
 //                                                         --------
@@ -179,21 +187,155 @@ void changeBit(typ *mask, unsigned short usBitIndex) {
     *mask ^= TURN_ON_BIT(usBitIndex);
 }
 
-BOOL isBitsOn(typ mask1, typ mask2)
-{
-    andMasks(mask1, mask2, &mask1);
-    return mask1 == mask2;
+//-------------------------------------------------------------------------------------------------------
+//									   isBitsOn
+//									   --------
+//
+// General : check if a given musk with his given size is on the right side of a given mask.
+// example:
+//	isBitsOn(767, 7, 2)
+//	767 = 0000001011111111, 7 = 00000000000111
+//	00000010111111[11] == 000000000001[11]
+//
+// Parameters :
+// mask1 - mask to check if the second mask is in his start(In)
+// mask2 - second mask(In)
+// maskSize - size to check(In)
+//
+// Runtime function: none
+//
+// nesting level : 0
+//
+// Return Value : TRUE if mask on the right side of the number, FALSE if not
+//
+//-------------------------------------------------------------------------------------------------------
+BOOL isBitsOn(typ mask1, typ mask2, unsigned short maskSize) {
+    // Variable definition
+    typ tempMask;
+
+    // Code section
+    tempMask = ONE;
+    initMask(&tempMask, maskSize);
+    mask1 &= tempMask;
+    mask2 &= tempMask;
+
+    return (mask1 == mask2);
 }
 
-BOOL containMask(typ mask1, typ mask2)
-{
-    BOOL flag = FALSE;
-    while (mask1 && !flag){
+//-------------------------------------------------------------------------------------------------------
+//											 containMask
+//											 -----------
+//
+// General : check if a given musk with his given size is in a given mask.
+// example:
+//	0000010111111110, -1 = 1111111111111111
+//	00000101111[1111]0 == 111111111111[1111]
+//
+// Parameters :
+// mask1 - mask to check if the second mask is in his start(In)
+// mask2 - second mask(In)
+// usMaskSize - size to check(In)
+//
+// Runtime function: t(n) = n^2 + 3
+//
+// nesting level : 1
+//
+// Return Value : TRUE if mask in inside the number, FALSE if not
+//
+//-------------------------------------------------------------------------------------------------------
+BOOL containMask(typ mask1, typ mask2, unsigned short usMaskSize) {
+    // Variable definition
+    BOOL bFlag;
+    unsigned short usFirstMaskSize;
+
+    // Code section
+    bFlag = FALSE;
+    usFirstMaskSize = EIGHT * sizeof(mask1);
+    while (usFirstMaskSize-- && !bFlag) {
         mask1 >>= ONE;
-        flag = isBitsOn(mask1, mask2);
+        bFlag = isBitsOn(mask1, mask2, usMaskSize);
     }
 
-    return flag;
+    return (bFlag);
+}
+
+//------------------------------------------------------------------------------------------------------
+//											 countMask
+//											 ---------
+//
+// General : Count the number of occurrences of a given musk with his given size is in a given mask.
+// example:
+//	0000010111111110, 1111111111111111
+//	0000010[1111][1111]0 == 11111111[1111][1111]
+//
+// Parameters :
+// mask1 - mask to check if the second mask is in his start(In)
+// mask2 - second mask(In)
+// usMaskSize - size to check(In)
+//
+// Runtime function: t(n) = n^2 + 4
+//
+// nesting level : 1
+//
+// Return Value : The amount of times the mask is inside the first mask
+//------------------------------------------------------------------------------------------------------
+unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize) {
+    // Variable definition
+    unsigned short usCounter;
+    unsigned short usFirstMaskSize;
+    BOOL bFound;
+
+    // Code section
+    usCounter = ZERO;
+    usFirstMaskSize = EIGHT * sizeof(mask1);
+    while (usFirstMaskSize--) {
+        bFound = isBitsOn(mask1, mask2, usMaskSize);
+        usCounter += bFound;
+
+        // If found the mask, will move by the mask size
+        mask1 >>= bFound ? usMaskSize : ONE;
+    }
+
+    return (usCounter);
+}
+
+//-------------------------------------------------------------------------------------------------------
+//											 countOnOff
+//											 ----------
+//
+// General : Count the amount of appearances of a given bit in a number.
+// example:
+//	countOnOff(1, 0)
+//  000000001 => 8
+//
+//  countOnOff(1, 1)
+//  000000001 => 1
+//
+// Parameters :
+// mask - mask to count the bits(In)
+// bBit - bit to check(Out)
+//
+// Runtime function: t(n) = n + 7
+//
+// nesting level : 1
+//
+// Return Value : the amount of the requested bits
+//
+//-------------------------------------------------------------------------------------------------------
+unsigned short countOnOff(typ mask, BOOL bBit) {
+    // Variable definition
+    unsigned short usCounter;
+    unsigned short usMaskSize;
+
+    // Code section
+    usCounter = ZERO;
+    usMaskSize = EIGHT * sizeof(mask);
+    while (usMaskSize--) {
+        usCounter += mask & ONE;
+        mask >>= ONE;
+    }
+
+    return (bBit ? usCounter : (sizeof(mask) * EIGHT) - usCounter);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
