@@ -10,10 +10,11 @@
 #define IS_ALL_BITS_OFF(mask) mask == ZERO
 #define IS_ALL_BITS_ON(mask) IS_ALL_BITS_OFF(~mask)
 #define TURN_ON_BIT(size) (ONE << (size - ONE))
-#define NUMBER_OF_BITS sizeof(nNum) * EIGHT
 #define firstPlaceOfNibble NUMBER_OF_BITS - NIBBLE_SIZE
 
 typedef unsigned int typ; // we chose max 32 bits can be change
+
+#define NUMBER_OF_BITS sizeof(typ) * EIGHT
 
 
 void initMask(typ *mask, unsigned short usSize);
@@ -391,7 +392,7 @@ unsigned short countOnOff(typ mask, BOOL bBit) {
         mask >>= ONE;
     }
 
-    return (bBit ? usCounter : (sizeof(mask) * EIGHT) - usCounter);
+    return (bBit ? usCounter : NUMBER_OF_BITS - usCounter);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -418,7 +419,7 @@ unsigned short countOnOff(typ mask, BOOL bBit) {
 // Return Value : the new number with the nibble
 //--------------------------------------------------------------------------------------------------------------------
 void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTimes) {
-	// Code section
+    // Code section
     *newNum = usNibble;
     for (; usTimes; usTimes--) {
         *newNum <<= NIBBLE_SIZE;
@@ -446,13 +447,12 @@ void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTi
 //
 // Return Value : the relocated number / the new number
 //--------------------------------------------------------------------------------------------------------------------
-unsigned int decimalAsHex(int nNum) 
-{
-	// Variable definition
+unsigned int decimalAsHex(int nNum) {
+    // Variable definition
     unsigned int numBin;
-	
-	// Code section
-	numBin = ZERO;
+
+    // Code section
+    numBin = ZERO;
     while (!(numBin & FULL_NIBBLE)) // while the last nibble is bigger than 0, represent the number in hex.
     {
         numBin >>= NIBBLE_SIZE;
