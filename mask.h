@@ -4,18 +4,15 @@
 
 #include "definesLib.h"
 
-#define MASK_MAX_SIZE 32
-
 #define IS_ALL_BITS_OFF(mask) mask == 0
 #define IS_ALL_BITS_ON(mask) IS_ALL_BITS_OFF(~mask)
-
 #define TURN_ON_BIT(size) (ONE << (size - ONE))
 
 typedef unsigned int typ; // we chose max 32 bits can be change
 
 //--------------------------------------------------------------------------------------------------------------------
-//                                                      initMask
-//                                                      --------
+//                                                         initMask
+//                                                         --------
 //
 // General : The function initialize mask (put 1 in all bits) by specific usSize.
 //
@@ -35,13 +32,13 @@ void initMask(typ *mask, unsigned short usSize) {
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-//                                                    turnOnUnusedBits
-//                                                    ----------------
+//                                                      turnOnUnusedBits
+//                                                      ----------------
 //
 // General : The function turn on all the bits after the mask size.
 //
 // Parameters :
-// mask - pointer to the mask we are going to initialize (In)
+// mask - pointer to the mask we are going to change (In)
 // usSize - the size of the mask (In)
 //
 // Return Value : None
@@ -53,8 +50,8 @@ void turnOnUnusedBits(typ *mask, unsigned short usSize) {
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-//                                                    turnOnUnusedBits
-//                                                    ----------------
+//                                                        isIndexBitOn
+//                                                        ------------
 //
 // General : The function check if  a bit is on.
 //
@@ -66,64 +63,101 @@ void turnOnUnusedBits(typ *mask, unsigned short usSize) {
 //
 //--------------------------------------------------------------------------------------------------------------------
 BOOL isIndexBitOn(typ mask, unsigned short usBitIndex) {
-    return mask & (TURN_ON_BIT(usBitIndex)));
+    return mask & (TURN_ON_BIT(usBitIndex));
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-//                                                    combineMasks
-//                                                    ------------
+//                                                        combineMasks
+//                                                        ------------
 //
-// General : The function check if  a bit is on.
+// General : The function combine to masks into one.
+// for example: 0011 | 1101 =  1111
 //
 // Parameters :
-// mask - pointer to the mask we are going to  (In)
-// usBitIndex - the index of the bit (In)
+// mask1 - first mask (In)
+// mask2 - second mask (In)
+// result - pointer to mask that we will save the result in (In)
 //
-// Return Value : boolean that indicated if the bit is on or off.
+// Return Value : None
 //
 //--------------------------------------------------------------------------------------------------------------------
 void combineMasks(typ mask1, typ mask2, typ *result) {
-    result = (mask1 | mask2);
+    *result = (mask1 | mask2);
 }
 
-//----------------------------------------------------------------------
-//                      turnOnBit
+//--------------------------------------------------------------------------------------------------------------------
+//                                                          andMaks
+//                                                          -------
 //
-// General : this function will turn on the bit in the place we want
-// for example:
-// NBitIndex  = 0
-// we want to turn on the 4 bit ( 8 - 1000)
-// indexOfBit = 4
-//
-//
-//
+// General : The function do and operator between two masks.
+// for example: 0011 & 1101 =  0001
 //
 // Parameters :
-// NBitIndex - the regular number
-// indexOfBit - our mask
+// mask1 - first mask (In)
+// mask2 - second mask (In)
+// result - pointer to mask that we will save the result in (In)
 //
-// Return Value : the same number with the turned on bit
-//----------------------------------------------------------------------
-void turnOnBit(typ *mask, int usBitIndex) {
+// Return Value : None
+//
+//--------------------------------------------------------------------------------------------------------------------
+void andMasks(typ mask1, typ mask2, typ *result) {
+    *result = (mask1 & mask2);
+}
+
+//--------------------------------------------------------------------------------------------------------------------
+//                                                          turnOnBit
+//                                                          --------
+//
+// General : this function will turn on the bit in the place of usBitIndex.
+//
+// Parameters :
+// usBitIndex - the regular number
+// mask - pointer to the mask
+//
+// Return Value : None.
+//--------------------------------------------------------------------------------------------------------------------
+void turnOnBit(typ *mask, unsigned short usBitIndex) {
     *mask |= TURN_ON_BIT(usBitIndex);
 }
 
-void turnOffBit(typ *mask, int usBitIndex) {
+
+//--------------------------------------------------------------------------------------------------------------------
+//                                                         turnOffBit
+//                                                         ----------
+//
+// General : this function will turn off the bit in the place of usBitIndex.
+//
+// Parameters :
+// usBitIndex - the regular number
+// mask - pointer to the mask
+//
+// Return Value : None.
+//--------------------------------------------------------------------------------------------------------------------
+void turnOffBit(typ *mask, unsigned short usBitIndex) {
     *mask &= ~TURN_ON_BIT(usBitIndex);
 }
 
-void changeBit(typ *mask, int usBitIndex) {
+//--------------------------------------------------------------------------------------------------------------------
+//                                                         changeBit
+//                                                         ---------
+//
+// General : this function will change the value of the bit regardless if he on or off like xor.
+//
+// Parameters :
+// usBitIndex - the bit index number
+// mask - pointer to the mask
+//
+// Return Value : None.
+//--------------------------------------------------------------------------------------------------------------------
+void changeBit(typ *mask, unsigned short usBitIndex) {
     *mask ^= TURN_ON_BIT(usBitIndex);
 }
 
-int shiftMaskLeft(typ mask, unsigned int nN) {
-    return (mask << nN) | (mask >> (MASK_MAX_SIZE - nN));
-}
-
-//----------------------------------------------------------------------
-//                      copyNibleByLengthOfNum
+//--------------------------------------------------------------------------------------------------------------------
+//                                                  copyNibbleByLengthOfNum
+//                                                  -----------------------
 //
-// General : this function will copy the last nible to the nibles before him
+// General : this function will copy the last nibble to the nibbles before him
 // in the length that we want
 // for example:
 // numBin = 0xf    (0000 0000 0000 0000 0000 0000 0000 1111)
@@ -133,17 +167,16 @@ int shiftMaskLeft(typ mask, unsigned int nN) {
 //
 //
 // Parameters :
-// numBin - the number we will copy his last nible
+// numBin - the number we will copy his last nibble
 // length - the length that we want to copy
 //
-// Return Value : the new number with the nibles
-//----------------------------------------------------------------------
-
-int copyNibleByLengthOfNum(int numBin, int length) {
+// Return Value : the new number with the nibble
+//--------------------------------------------------------------------------------------------------------------------
+int copyNibbleByLengthOfNum(int numBin, int length) {
     int count, shift = 4, newNumBin = numBin;
     for (count = 0; count < length; shift += 4, count++) {
         int tmp = numBin
-                << shift; // we move the original nibles as the length, every time shift will grow by 4 so we go to the nible before the last one
+                << shift; // we move the original nibbles as the length, every time shift will grow by 4, so we go to the nibble before the last one
         // for example: 0xf << 8
         // 0xf00
 
@@ -152,30 +185,31 @@ int copyNibleByLengthOfNum(int numBin, int length) {
     return newNumBin;
 }
 
-//----------------------------------------------------------------------
-//                      decimalToHex
+//--------------------------------------------------------------------------------------------------------------------
+//                                                      decimalAsHex
+//                                                      ------------
 //
 // General : this function will convert a decimal number to hex number
-// this means that each decimal digit will be relocated into a nible
+// this means that each decimal digit will be relocated into a nibble
 // for example:
 // num = 1234     ( 0000 0000 0000 0000 0000 0100 1101 0010 ) or 0x4D2
 // will return numBin:
 // numBin = 4660      ( 0000 0000 0000 0000 0001 0010 0011 0100 ) or 0x1234
 //
-// the reason I do it is that now each decimal digit is located in its own nible
+// the reason I do it is that now each decimal digit is located in its own nibble
 //
 //
 // Parameters :
 // num - the number we relocated
 //
 // Return Value : the relocated number
-//----------------------------------------------------------------------
-unsigned int decimalToHex(int num) {
+//--------------------------------------------------------------------------------------------------------------------
+unsigned int decimalAsHex(int num) {
     unsigned int numBin = 0;
     typ mask = 0xf;
 
     while ((numBin & mask) ==
-           0) // while the last nibel is bigger then 0, represent the nmber in hex, keep the same number
+           0) // while the last nibble is bigger than 0, represent the number in hex, keep the same number
     {
         numBin >>= 4;
         numBin |= ((num % TEN) << 28);
@@ -184,3 +218,4 @@ unsigned int decimalToHex(int num) {
 
     return numBin;
 }
+
