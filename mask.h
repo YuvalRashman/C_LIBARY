@@ -45,9 +45,9 @@ BOOL containMask(typ mask1, typ mask2, unsigned short usMaskSize);
 
 unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize);
 
-void fixShiftLeft(unsigned short *mask, unsigned short times);
+void fixShiftLeft(typ *mask, unsigned short usTimes, unsigned short usMaskSize);
 
-void fixShiftRight(unsigned short *mask, unsigned short times);
+void fixShiftRight(typ *mask, unsigned short usTimes, unsigned short usMaskSize);
 
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -338,21 +338,21 @@ unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize) {
     return (usCounter);
 }
 
-void fixShiftLeft(unsigned short *mask, unsigned short times) {
-    unsigned short temp;
-    for (; times; times--) {
-        temp = *mask & NUMBER_OF_BITS;
+void fixShiftLeft(typ *mask, unsigned short usTimes, unsigned short usMaskSize) {
+    unsigned short usTemp;
+    for (; usTimes; usTimes--) {
+        usTemp = *mask & TURN_ON_BIT(usMaskSize);
         *mask <<= ONE;
-        *mask += temp;
+        *mask += usTemp;
     }
 }
 
-void fixShiftRight(unsigned short *mask, unsigned short times) {
-    unsigned short temp;
-    for (; times; times--) {
-        temp = *mask & ONE;
+void fixShiftRight(typ *mask, unsigned short usTimes, unsigned short usMaskSize) {
+    unsigned short usTemp;
+    for (; usTimes; usTimes--) {
+        usTemp = *mask & ONE;
         *mask >>= ONE;
-        temp ? turnOnBit(mask, NUMBER_OF_BITS) : turnOffBit(mask, NUMBER_OF_BITS);
+        usTemp ? turnOnBit(mask, usMaskSize) : turnOffBit(mask, usMaskSize);
     }
 }
 
