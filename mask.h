@@ -10,6 +10,27 @@
 
 typedef unsigned int typ; // we chose max 32 bits can be change
 
+
+void initMask(typ *mask, unsigned short usSize);
+
+void turnOnUnusedBits(typ *mask, unsigned short usSize);
+
+BOOL isIndexBitOn(typ mask, unsigned short usBitIndex);
+
+void combineMasks(typ mask1, typ mask2, typ *result);
+
+void andMasks(typ mask1, typ mask2, typ *result);
+
+void turnOnBit(typ *mask, unsigned short usBitIndex);
+
+void turnOffBit(typ *mask, unsigned short usBitIndex);
+
+void changeBit(typ *mask, unsigned short usBitIndex);
+
+int copyNibbleByLengthOfNum(int numBin, int length);
+
+unsigned int decimalAsHex(int num);
+
 //--------------------------------------------------------------------------------------------------------------------
 //                                                         initMask
 //                                                         --------
@@ -45,8 +66,9 @@ void initMask(typ *mask, unsigned short usSize) {
 //
 //--------------------------------------------------------------------------------------------------------------------
 void turnOnUnusedBits(typ *mask, unsigned short usSize) {
-    initMask(mask, usSize);
-    *mask = ~(*mask);
+    typ temp;
+    initMask(&temp, usSize);
+    *mask |= ~(temp);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
