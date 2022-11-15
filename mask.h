@@ -1,5 +1,5 @@
 //
-// Created by Yuval Rashman (Id: 214616161), Shacked Dror (Id: 326300548), Yanir Shmulevich (Id: 209952308) on 11/11/2022.
+// Created by Yuval Rashman (Id: 214616161), Shaked Dror (Id: 326300548), Yanir Shmulevich (Id: 209952308) on 11/11/2022.
 //
 
 #include "definesLib.h"
@@ -10,10 +10,11 @@
 #define IS_ALL_BITS_OFF(mask) mask == ZERO
 #define IS_ALL_BITS_ON(mask) IS_ALL_BITS_OFF(~mask)
 #define TURN_ON_BIT(size) (ONE << (size - ONE))
+#define NUMBER_OF_BITS sizeof(typ) * EIGHT
 #define firstPlaceOfNibble NUMBER_OF_BITS - NIBBLE_SIZE
 
 typedef unsigned int typ; // we chose max 32 bits can be change
-#define NUMBER_OF_BITS sizeof(typ) * EIGHT
+
 
 
 void initMask(typ *mask, unsigned short usSize);
@@ -32,7 +33,7 @@ void turnOffBit(typ *mask, unsigned short usBitIndex);
 
 void changeBit(typ *mask, unsigned short usBitIndex);
 
-unsigned short countOnOff(typ mask, BOOL bBit);
+unsigned short countOnOff(typ mask, unsigned short usMaskSize, BOOL bBit);
 
 void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTimes);
 
@@ -47,6 +48,8 @@ unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize);
 void fixShiftLeft(typ *mask, unsigned short usTimes, unsigned short usMaskSize);
 
 void fixShiftRight(typ *mask, unsigned short usTimes, unsigned short usMaskSize);
+
+void shiftRight(typ* mask, unsigned short usTimes, unsigned short usMaskSize);
 
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -337,6 +340,23 @@ unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize) {
     return (usCounter);
 }
 
+//------------------------------------------------------------------------------------------------------
+//											 fixShiftLeft
+//											 ------------
+//
+// General : Performing a cyclic left rotation n times.
+//
+// Parameters :
+// mask - mask to performe on a cyclic left rotation(In/Out)
+// usTimes - n times rotation(In)
+// usMaskSize - rotation range(In)
+//
+// Runtime function: t(n) = 5n
+//
+// nesting level : 1
+//
+// Return Value : none
+//------------------------------------------------------------------------------------------------------
 void fixShiftLeft(typ *mask, unsigned short usTimes, unsigned short usMaskSize) {
     unsigned short usTemp;
     for (; usTimes; usTimes--) {
@@ -346,6 +366,23 @@ void fixShiftLeft(typ *mask, unsigned short usTimes, unsigned short usMaskSize) 
     }
 }
 
+//------------------------------------------------------------------------------------------------------
+//											 fixShiftRight
+//											 -------------
+//
+// General : Performing a cyclic right rotation n times.
+//
+// Parameters :
+// mask - mask to performe on a cyclic right rotation(In/Out)
+// usTimes - n times rotation(In)
+// usMaskSize - rotation range(In)
+//
+// Runtime function: t(n) = 5n
+//
+// nesting level : 1
+//
+// Return Value : none
+//------------------------------------------------------------------------------------------------------
 void fixShiftRight(typ *mask, unsigned short usTimes, unsigned short usMaskSize) {
     unsigned short usTemp;
     for (; usTimes; usTimes--) {
@@ -355,21 +392,47 @@ void fixShiftRight(typ *mask, unsigned short usTimes, unsigned short usMaskSize)
     }
 }
 
+//------------------------------------------------------------------------------------------------------
+//											 ShiftRight
+//											 ----------
+//
+// General : Performing a right rotation n times and keeping the left bit.
+//
+// Parameters :
+// mask - mask to performe on a cyclic right rotation(In/Out)
+// usTimes - n times rotation(In)
+// usMaskSize - rotation range(In)
+//
+// Runtime function: t(n) = 4n
+//
+// nesting level : 1
+//
+// Return Value : none
+//------------------------------------------------------------------------------------------------------
+void shiftRight(typ* mask, unsigned short usTimes, unsigned short usMaskSize) {
+    unsigned short usTemp;
+    for (; usTimes; usTimes--) {
+        *mask >>= ONE;
+        *mask & TURN_ON_BIT(usMaskSize - ONE) ? turnOnBit(mask, usMaskSize) : turnOffBit(mask, usMaskSize);
+    }
+}
+
 //-------------------------------------------------------------------------------------------------------
 //											 countOnOff
 //											 ----------
 //
 // General : Count the amount of appearances of a given bit in a number.
 // example:
-//	countOnOff(1, 0)
-//  000000001 => 8
+//	countOnOff(1, 2, 1)
+//  0000000[01] => 1
 //
-//  countOnOff(1, 1)
-//  000000001 => 1
+//  countOnOff(1, 8, 0)
+//  0[00000001] => 7
 //
 // Parameters :
 // mask - mask to count the bits(In)
-// bBit - bit to check(Out)
+// bBit - bit to check(In)
+// usMaskSize - mask size(In)
 //
 // Runtime function: t(n) = 3n + 3
 //
@@ -378,20 +441,20 @@ void fixShiftRight(typ *mask, unsigned short usTimes, unsigned short usMaskSize)
 // Return Value : the amount of the requested bits
 //
 //-------------------------------------------------------------------------------------------------------
-unsigned short countOnOff(typ mask, BOOL bBit) {
+unsigned short countOnOff(typ mask, unsigned short usMaskSize, BOOL bBit) {
     // Variable definition
     unsigned short usCounter;
-    unsigned short usMaskSize;
+    unsigned short usTempSize;
 
     // Code section
     usCounter = ZERO;
-    usMaskSize = EIGHT * sizeof(mask);
-    while (usMaskSize--) {
+    usTempSize = usMaskSize;
+    while (usTempSize--) {
         usCounter += mask & ONE;
         mask >>= ONE;
     }
 
-    return (bBit ? usCounter : NUMBER_OF_BITS - usCounter);
+    return (bBit ? usCounter : usMaskSize - usCounter);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
