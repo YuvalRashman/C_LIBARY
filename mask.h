@@ -10,7 +10,8 @@
 #define IS_ALL_BITS_OFF(mask) mask == ZERO
 #define IS_ALL_BITS_ON(mask) IS_ALL_BITS_OFF(~mask)
 #define TURN_ON_BIT(size) (ONE << (size - ONE))
-#define firstPlaceOfNibble sizeof(nNum) * EIGHT - NIBBLE_SIZE
+#define NUMBER_OF_BITS sizeof(nNum) * EIGHT
+#define firstPlaceOfNibble NUMBER_OF_BITS - NIBBLE_SIZE
 
 typedef unsigned int typ; // we chose max 32 bits can be change
 
@@ -31,6 +32,8 @@ void turnOffBit(typ *mask, unsigned short usBitIndex);
 
 void changeBit(typ *mask, unsigned short usBitIndex);
 
+unsigned short countOnOff(typ mask, BOOL bBit);
+
 void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTimes);
 
 unsigned int decimalAsHex(int nNum);
@@ -41,7 +44,10 @@ BOOL containMask(typ mask1, typ mask2, unsigned short usMaskSize);
 
 unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize);
 
-unsigned short countOnOff(typ mask, BOOL bBit);
+void fixShiftLeft(unsigned short *mask, unsigned short times);
+
+void fixShiftRight(unsigned short *mask, unsigned short times);
+
 
 //--------------------------------------------------------------------------------------------------------------------
 //                                                         initMask
@@ -329,6 +335,24 @@ unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize) {
     }
 
     return (usCounter);
+}
+
+void fixShiftLeft(unsigned short *mask, unsigned short times) {
+    unsigned short temp;
+    for (; times; times--) {
+        temp = *mask & NUMBER_OF_BITS;
+        *mask <<= ONE;
+        *mask += temp;
+    }
+}
+
+void fixShiftRight(unsigned short *mask, unsigned short times) {
+    unsigned short temp;
+    for (; times; times--) {
+        temp = *mask & ONE;
+        *mask >>= ONE;
+        temp ? turnOnBit(mask, NUMBER_OF_BITS) : turnOffBit(mask, NUMBER_OF_BITS);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------
