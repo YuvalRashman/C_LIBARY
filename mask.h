@@ -53,6 +53,10 @@ unsigned short countOnOff(typ mask, BOOL bBit);
 // mask - pointer to the mask we are going to initialize (In)
 // usSize - the size of the mask (In)
 //
+// Runtime function: none
+//
+// nesting level : 0
+//
 // Return Value : None
 //
 //--------------------------------------------------------------------------------------------------------------------
@@ -74,6 +78,10 @@ void initMask(typ *mask, unsigned short usSize) {
 // mask - pointer to the mask we are going to change (In)
 // usSize - the size of the mask (In)
 //
+// Runtime function: none
+//
+// nesting level : 0
+//
 // Return Value : None
 //
 //--------------------------------------------------------------------------------------------------------------------
@@ -93,6 +101,10 @@ void turnOnUnusedBits(typ *mask, unsigned short usSize) {
 // mask - pointer to the mask we are going to initialize (In)
 // usBitIndex - the index of the bit (In)
 //
+// Runtime function: none
+//
+// nesting level : 0
+
 // Return Value : boolean that indicated if the bit is on or off.
 //
 //--------------------------------------------------------------------------------------------------------------------
@@ -111,6 +123,10 @@ BOOL isIndexBitOn(typ mask, unsigned short usBitIndex) {
 // mask1 - first mask (In)
 // mask2 - second mask (In)
 // result - pointer to mask that we will save the result in (In)
+//
+// Runtime function: none
+//
+// nesting level : 0
 //
 // Return Value : None
 //
@@ -131,6 +147,10 @@ void combineMasks(typ mask1, typ mask2, typ *result) {
 // mask2 - second mask (In)
 // result - pointer to mask that we will save the result in (In)
 //
+// Runtime function: none
+//
+// nesting level : 0
+//
 // Return Value : None
 //
 //--------------------------------------------------------------------------------------------------------------------
@@ -147,6 +167,10 @@ void andMasks(typ mask1, typ mask2, typ *result) {
 // Parameters :
 // usBitIndex - the regular number
 // mask - pointer to the mask
+//
+// Runtime function: none
+//
+// nesting level : 0
 //
 // Return Value : None.
 //--------------------------------------------------------------------------------------------------------------------
@@ -165,6 +189,10 @@ void turnOnBit(typ *mask, unsigned short usBitIndex) {
 // usBitIndex - the regular number
 // mask - pointer to the mask
 //
+// Runtime function: none
+//
+// nesting level : 0
+//
 // Return Value : None.
 //--------------------------------------------------------------------------------------------------------------------
 void turnOffBit(typ *mask, unsigned short usBitIndex) {
@@ -180,6 +208,10 @@ void turnOffBit(typ *mask, unsigned short usBitIndex) {
 // Parameters :
 // usBitIndex - the bit index number
 // mask - pointer to the mask
+//
+// Runtime function: none
+//
+// nesting level : 0
 //
 // Return Value : None.
 //--------------------------------------------------------------------------------------------------------------------
@@ -355,6 +387,10 @@ unsigned short countOnOff(typ mask, BOOL bBit) {
 // usNibble - the number we will copy his last nibble
 // usTimes - the usTimes that we want to copy
 //
+// Runtime function: t(n) = 4n + 1
+//
+// nesting level : 1
+//
 // Return Value : the new number with the nibble
 //--------------------------------------------------------------------------------------------------------------------
 void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTimes) {
@@ -378,6 +414,10 @@ void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTi
 //
 // Parameters :
 // nNum - the number we relocated
+//
+// Runtime function: t(n) = 4n + 1
+//
+// nesting level : 1
 //
 // Return Value : the relocated number / the new number
 //--------------------------------------------------------------------------------------------------------------------
