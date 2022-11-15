@@ -394,6 +394,7 @@ unsigned short countOnOff(typ mask, BOOL bBit) {
 // Return Value : the new number with the nibble
 //--------------------------------------------------------------------------------------------------------------------
 void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTimes) {
+	// Code section
     *newNum = usNibble;
     for (; usTimes; usTimes--) {
         *newNum <<= NIBBLE_SIZE;
@@ -421,8 +422,13 @@ void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTi
 //
 // Return Value : the relocated number / the new number
 //--------------------------------------------------------------------------------------------------------------------
-unsigned int decimalAsHex(int nNum) {
-    unsigned int numBin = ZERO;
+unsigned int decimalAsHex(int nNum) 
+{
+	// Variable definition
+    unsigned int numBin;
+	
+	// Code section
+	numBin = ZERO;
     while (!(numBin & FULL_NIBBLE)) // while the last nibble is bigger than 0, represent the number in hex.
     {
         numBin >>= NIBBLE_SIZE;
