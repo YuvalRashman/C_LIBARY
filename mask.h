@@ -10,6 +10,7 @@
 #define IS_ALL_BITS_OFF(mask) mask == ZERO
 #define IS_ALL_BITS_ON(mask) IS_ALL_BITS_OFF(~mask)
 #define TURN_ON_BIT(size) (ONE << (size - ONE))
+#define firstPlaceOfNibble sizeof(nNum) * EIGHT - NIBBLE_SIZE
 
 typedef unsigned int typ; // we chose max 32 bits can be change
 
@@ -30,7 +31,7 @@ void turnOffBit(typ *mask, unsigned short usBitIndex);
 
 void changeBit(typ *mask, unsigned short usBitIndex);
 
-int copyNibbleByTimes(unsigned short usNibble, unsigned short usTimes);
+void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTimes);
 
 unsigned int decimalAsHex(int nNum);
 
@@ -208,18 +209,18 @@ BOOL containMask(typ mask1, typ mask2)
 //
 //
 // Parameters :
+// newNum - pointer to the result mask.
 // usNibble - the number we will copy his last nibble
 // usTimes - the usTimes that we want to copy
 //
 // Return Value : the new number with the nibble
 //--------------------------------------------------------------------------------------------------------------------
-int copyNibbleByTimes(unsigned short usNibble, unsigned short usTimes) {
-    int newNumBin = usNibble;
+void copyNibbleByTimes(typ *newNum, unsigned short usNibble, unsigned short usTimes) {
+    *newNum = usNibble;
     for (; usTimes; usTimes--) {
-        newNumBin <<= NIBBLE_SIZE;
-        newNumBin += usNibble;
+        *newNum <<= NIBBLE_SIZE;
+        *newNum += usNibble;
     }
-    return newNumBin;
 }
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -243,7 +244,7 @@ unsigned int decimalAsHex(int nNum) {
     while (!(numBin & FULL_NIBBLE)) // while the last nibble is bigger than 0, represent the number in hex.
     {
         numBin >>= NIBBLE_SIZE;
-        numBin |= ((nNum % TEN) << 28);
+        numBin |= ((nNum % TEN) << (firstPlaceOfNibble));
         nNum /= TEN;
     }
     return numBin;
