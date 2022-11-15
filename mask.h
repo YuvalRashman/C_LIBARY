@@ -178,6 +178,23 @@ void changeBit(typ *mask, unsigned short usBitIndex) {
     *mask ^= TURN_ON_BIT(usBitIndex);
 }
 
+BOOL isBitsOn(typ mask1, typ mask2)
+{
+    andMasks(mask1, mask2, &mask1);
+    return mask1 == mask2;
+}
+
+BOOL containMask(typ mask1, typ mask2)
+{
+    BOOL flag = FALSE;
+    while (mask1 && !flag){
+        mask1 >>= ONE;
+        flag = isBitsOn(mask1, mask2);
+    }
+
+    return flag;
+}
+
 //--------------------------------------------------------------------------------------------------------------------
 //                                                    copyNibbleByTimes
 //                                                    -----------------
