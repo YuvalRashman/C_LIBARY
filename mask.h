@@ -268,7 +268,7 @@ BOOL isBitsOn(typ mask1, typ mask2, unsigned short maskSize) {
 // mask2 - second mask(In)
 // usMaskSize - size to check(In)
 //
-// Runtime function: t(n) = n^2 + 3
+// Runtime function: t(n) = 4n + 1
 //
 // nesting level : 1
 //
@@ -305,7 +305,7 @@ BOOL containMask(typ mask1, typ mask2, unsigned short usMaskSize) {
 // mask2 - second mask(In)
 // usMaskSize - size to check(In)
 //
-// Runtime function: t(n) = n^2 + 4
+// Runtime function: t(n) = 4n + 2
 //
 // nesting level : 1
 //
@@ -347,7 +347,7 @@ unsigned short countMask(typ mask1, typ mask2, unsigned short usMaskSize) {
 // mask - mask to count the bits(In)
 // bBit - bit to check(Out)
 //
-// Runtime function: t(n) = n + 7
+// Runtime function: t(n) = 3n + 3
 //
 // nesting level : 1
 //
