@@ -13,7 +13,6 @@
 #define firstPlaceOfNibble NUMBER_OF_BITS - NIBBLE_SIZE
 
 typedef unsigned int typ; // we chose max 32 bits can be change
-
 #define NUMBER_OF_BITS sizeof(typ) * EIGHT
 
 
