@@ -2,6 +2,8 @@
 // Created by yrash on 11/29/2022.
 //
 
+#include <stdio.h>
+
 #define STACK_SIZE 4
 #define BOOL char
 #define TRUE 1
@@ -101,3 +103,26 @@ void Empty_stack(stack *stack1) {
     Init_stack(stack1);
 }
 
+void Is_Equal_Stack(stack stack1, stack stack2) {
+    BOOL flag;
+    flag = Total_items_in_stack(stack1) == Total_items_in_stack(stack2);
+    while (flag && Is_Empty_Stack(stack1)) {
+        flag = Pop_stack(stack1) == Pop_stack(stack2);
+    }
+    return flag;
+}
+
+unsigned short Sum_Stack(stack stack1) {
+    unsigned short sum = 0;
+    while (Is_Empty_Stack(stack1)) {
+        sum = Pop_stack(stack1);
+    }
+    return sum;
+}
+
+void Print_Stack(stack stack1) {
+    unsigned short items = Total_items_in_stack(stack1);
+    for (; items > 0; items--) {
+        printf("%d", Pop_stack(stack1));
+    }
+}
