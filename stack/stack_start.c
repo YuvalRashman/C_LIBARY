@@ -126,3 +126,19 @@ void Print_Stack(stack stack1) {
         printf("%d", Pop_stack(stack1));
     }
 }
+
+7.    start
+8.
+define variables
+a.
+stack stack1
+b.
+typ tepm
+9.    while(
+temp = pop(stack1) < pop(stack1)
+);
+
+unsigned short getMiddleValue(stack stack1) {
+    while ((temp = Pop_stack(stack1)) < Pop_stack(stack1));
+    return temp;
+}
