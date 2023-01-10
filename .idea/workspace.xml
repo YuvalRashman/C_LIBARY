@@ -18,8 +18,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="32c8aeb8-523d-4476-8b54-70e82ed8ca9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/LinearLinkedList.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LinearLinkedList.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CercularLinearLinkedList.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LLLCode.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LinearLinkedList.c" beforeDir="false" afterPath="$PROJECT_DIR$/LinearLinkedList.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TicTacToeArrayV.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/definesLib.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/matrix.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stringL.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +66,11 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\yrash\Documents\GitHub\C_LIBARY_DESKTOP\C_LIBARY" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -82,7 +96,7 @@
       <workItem from="1669750593282" duration="459000" />
       <workItem from="1669753273940" duration="2140000" />
       <workItem from="1669755722148" duration="1000" />
-      <workItem from="1673375161370" duration="2090000" />
+      <workItem from="1673375161370" duration="6183000" />
     </task>
     <servers />
   </component>

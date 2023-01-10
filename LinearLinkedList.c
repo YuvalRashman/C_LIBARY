@@ -11,7 +11,6 @@ void Push(LinearLinkedListNode **manager, typ value) {
     *manager = node;
 }
 
-
 void Pop(LinearLinkedListNode **manager) {
     LinearLinkedListNode *ptr = (*manager);
     manager = (*manager)->next;
