@@ -1,3 +1,3 @@
-C:/Users/yrash/Documents/GitHub/C_LIBARY_DESKTOP/C_LIBARY/cmake-build-debug/CMakeFiles/C_LIBARY.dir
-C:/Users/yrash/Documents/GitHub/C_LIBARY_DESKTOP/C_LIBARY/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/yrash/Documents/GitHub/C_LIBARY_DESKTOP/C_LIBARY/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/yrash/Documents/GitHub/C_LIBARY_AND_CONFIGS/C_LIBARY/cmake-build-debug/CMakeFiles/C_LIBARY.dir
+/cygdrive/c/Users/yrash/Documents/GitHub/C_LIBARY_AND_CONFIGS/C_LIBARY/cmake-build-debug/CMakeFiles/edit_cache.dir
+/cygdrive/c/Users/yrash/Documents/GitHub/C_LIBARY_AND_CONFIGS/C_LIBARY/cmake-build-debug/CMakeFiles/rebuild_cache.dir

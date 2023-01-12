@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.23"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "C_LIBARY::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-C_LIBARY-Debug-81321391ffd292aae45f.json",
+					"jsonFile" : "target-C_LIBARY-Debug-bc7bf9a045b33b606f9a.json",
 					"name" : "C_LIBARY",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/yrash/Documents/GitHub/C_LIBARY_DESKTOP/C_LIBARY/cmake-build-debug",
-		"source" : "C:/Users/yrash/Documents/GitHub/C_LIBARY_DESKTOP/C_LIBARY"
+		"build" : "/cygdrive/c/Users/yrash/Documents/GitHub/C_LIBARY_AND_CONFIGS/C_LIBARY/cmake-build-debug",
+		"source" : "/cygdrive/c/Users/yrash/Documents/GitHub/C_LIBARY_AND_CONFIGS/C_LIBARY"
 	},
 	"version" : 
 	{

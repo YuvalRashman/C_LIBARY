@@ -6,6 +6,5 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(C_LIBARY
-        LinearLinkedList.h
-        CircularLinearLinkedList
+        LLLCode.c
         )
